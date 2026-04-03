@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Colorado in Motion</title>
+  <style>
+    @font-face {
+      font-family: "Audrey";
+      src: url("Audrey/Audrey-Normal.otf") format("opentype");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: "Bevola";
+      src: url("bevola-font/BevolaDemo-Regular-BF69b9581c161bc.ttf") format("truetype");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    :root {
+      --paper: oklch(96% 0.03 92);
+      --paper-shadow: oklch(86% 0.03 84);
+      --ink: oklch(25% 0.04 252);
+      --muted: oklch(47% 0.04 240);
+      --frame: oklch(40% 0.05 254 / 0.18);
+      --sky-top: oklch(84% 0.1 235);
+      --sky-mid: oklch(73% 0.13 246);
+      --sky-low: oklch(61% 0.14 257);
+      --sun-core: oklch(90% 0.17 89);
+      --sun-glow: oklch(84% 0.16 66 / 0.5);
+      --peak-back: oklch(50% 0.06 248);
+      --peak-mid: oklch(40% 0.06 251);
+      --peak-front: oklch(29% 0.05 255);
+      --snow: oklch(97% 0.01 250 / 0.92);
+      --river: oklch(72% 0.13 220);
+      --river-highlight: oklch(92% 0.04 216 / 0.72);
+      --columbine-blue: oklch(61% 0.18 268);
+      --columbine-white: oklch(98% 0.01 100);
+      --gold: oklch(82% 0.16 87);
+      --card: oklch(96% 0.02 95 / 0.88);
+      --card-line: oklch(63% 0.05 244 / 0.26);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      color-scheme: light;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      padding: clamp(20px, 4vw, 40px);
+      color: var(--ink);
+      font-family: "Inter", "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top, oklch(99% 0.02 98), transparent 38%),
+        linear-gradient(180deg, oklch(92% 0.04 88), oklch(89% 0.05 79));
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .poster {
+      width: min(1120px, 100%);
+      margin: 0 auto;
+      padding: clamp(20px, 4vw, 38px);
+      border: 1px solid var(--frame);
+      border-radius: 28px;
+      background:
+        radial-gradient(circle at 1px 1px, oklch(34% 0.01 250 / 0.05) 1px, transparent 0),
+        linear-gradient(180deg, var(--paper), color-mix(in oklab, var(--paper) 84%, white 16%));
+      background-size: 22px 22px, auto;
+      box-shadow:
+        0 1px 0 oklch(100% 0 0 / 0.65) inset,
+        0 28px 60px -40px oklch(18% 0.03 250 / 0.55);
+      container-type: inline-size;
+    }
+
+    .masthead {
+      display: grid;
+      gap: 10px;
+      margin-bottom: clamp(18px, 3vw, 30px);
+      text-align: center;
+
+      p {
+        margin: 0;
+      }
+    }
+
+    .eyebrow {
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      font-size: 0.76rem;
+      color: var(--muted);
+    }
+
+    h1 {
+      margin: 0;
+      font-family: "Bevola", "Times New Roman", serif;
+      font-size: clamp(3.2rem, 8cqi, 6rem);
+      line-height: 0.9;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+    }
+
+    .dek {
+      margin: 0 auto;
+      max-width: 58ch;
+      font-size: clamp(1rem, 2.3cqi, 1.14rem);
+      color: color-mix(in oklab, var(--ink) 76%, white 24%);
+    }
+
+    .content {
+      display: grid;
+      gap: clamp(18px, 2.4vw, 28px);
+      align-items: start;
+    }
+
+    .visual-column {
+      display: grid;
+      gap: clamp(18px, 2.4vw, 26px);
+    }
+
+    .scene-panel,
+    .facts-panel,
+    .process-note {
+      border: 1px solid var(--frame);
+      border-radius: 24px;
+      background: color-mix(in oklab, white 60%, var(--paper) 40%);
+      box-shadow: 0 18px 32px -30px oklch(25% 0.02 250 / 0.4);
+    }
+
+    .scene-panel {
+      padding: clamp(14px, 2vw, 18px);
+    }
+
+    .scene {
+      position: relative;
+      min-height: min(78svh, 720px);
+      overflow: hidden;
+      border-radius: 18px;
+      background:
+        linear-gradient(180deg, var(--sky-top) 0%, var(--sky-mid) 48%, var(--sky-low) 100%);
+      isolation: isolate;
+    }
+
+    .scene::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 20% 18%, oklch(97% 0.02 98 / 0.38), transparent 0 28%),
+        radial-gradient(circle at 80% 26%, oklch(95% 0.03 98 / 0.2), transparent 0 24%);
+      pointer-events: none;
+    }
+
+    .title-chip {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      z-index: 6;
+      padding: 12px 16px;
+      max-width: 28ch;
+      border: 1px solid oklch(100% 0 0 / 0.28);
+      border-radius: 18px;
+      background: oklch(100% 0 0 / 0.12);
+      backdrop-filter: blur(10px);
+
+      p {
+        margin: 0;
+      }
+    }
+
+    .title-chip strong {
+      display: block;
+      margin-bottom: 4px;
+      font-family: "Audrey", "Georgia", serif;
+      font-size: clamp(1.1rem, 2.6cqi, 1.45rem);
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: oklch(99% 0.01 250);
+    }
+
+    .title-chip span {
+      font-size: 0.92rem;
+      line-height: 1.45;
+      color: oklch(97% 0.02 250 / 0.9);
+    }
+
+    .sun {
+      position: absolute;
+      top: 10%;
+      right: 12%;
+      width: clamp(150px, 25cqi, 260px);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at center, var(--sun-core) 0 34%, oklch(92% 0.16 83) 35%, transparent 66%);
+      filter: drop-shadow(0 0 28px var(--sun-glow));
+      animation: sunPulse 7s ease-in-out infinite;
+    }
+
+    .sun::before,
+    .sun::after {
+      content: "";
+      position: absolute;
+      inset: 12%;
+      border: 1px solid oklch(100% 0 0 / 0.4);
+      border-radius: 50%;
+      animation: haloSpin 16s linear infinite;
+    }
+
+    .sun::after {
+      inset: -10%;
+      border-style: dashed;
+      opacity: 0.65;
+      animation-direction: reverse;
+      animation-duration: 24s;
+    }
+
+    .starfield {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .star {
+      --size: 18px;
+      position: absolute;
+      width: var(--size);
+      aspect-ratio: 1;
+      background: oklch(99% 0.01 90 / 0.9);
+      clip-path: polygon(50% 0%, 61% 36%, 100% 50%, 61% 64%, 50% 100%, 39% 64%, 0% 50%, 39% 36%);
+      mix-blend-mode: screen;
+      animation: twinkle 4s ease-in-out infinite;
+    }
+
+    .star:nth-child(1) { top: 12%; left: 16%; --size: 16px; animation-delay: -1s; }
+    .star:nth-child(2) { top: 18%; left: 62%; --size: 12px; animation-delay: -3.4s; }
+    .star:nth-child(3) { top: 30%; left: 78%; --size: 20px; animation-delay: -2.1s; }
+    .star:nth-child(4) { top: 38%; left: 28%; --size: 10px; animation-delay: -0.8s; }
+    .star:nth-child(5) { top: 22%; left: 44%; --size: 14px; animation-delay: -2.8s; }
+    .star:nth-child(6) { top: 10%; left: 82%; --size: 11px; animation-delay: -1.7s; }
+
+    .range {
+      position: absolute;
+      left: -4%;
+      width: 108%;
+      transform-origin: center bottom;
+      animation: rangeShift 9s ease-in-out infinite;
+    }
+
+    .range::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, oklch(100% 0 0 / 0.26), transparent 28%);
+      clip-path: inherit;
+      transform: translateY(8px) scale(0.98);
+      opacity: 0.65;
+    }
+
+    .range.back {
+      bottom: 30%;
+      height: 36%;
+      background: linear-gradient(180deg, color-mix(in oklab, white 22%, var(--peak-back) 78%), var(--peak-back));
+      clip-path: polygon(0 100%, 0 61%, 12% 48%, 21% 58%, 32% 29%, 46% 59%, 58% 38%, 71% 56%, 84% 31%, 100% 64%, 100% 100%);
+      opacity: 0.9;
+      animation-delay: -2.5s;
+    }
+
+    .range.mid {
+      bottom: 17%;
+      height: 42%;
+      background: linear-gradient(180deg, color-mix(in oklab, white 16%, var(--peak-mid) 84%), var(--peak-mid));
+      clip-path: polygon(0 100%, 0 67%, 10% 57%, 19% 23%, 34% 61%, 45% 40%, 54% 51%, 66% 19%, 81% 63%, 90% 49%, 100% 68%, 100% 100%);
+      animation-duration: 11s;
+    }
+
+    .range.front {
+      bottom: 0;
+      height: 48%;
+      background: linear-gradient(180deg, color-mix(in oklab, white 8%, var(--peak-front) 92%), var(--peak-front));
+      clip-path: polygon(0 100%, 0 72%, 9% 56%, 18% 70%, 28% 34%, 43% 64%, 55% 42%, 63% 55%, 74% 20%, 85% 68%, 94% 52%, 100% 60%, 100% 100%);
+      animation-duration: 13s;
+      animation-delay: -4s;
+    }
+
+    .snowcap {
+      position: absolute;
+      background: var(--snow);
+      filter: drop-shadow(0 8px 10px oklch(100% 0 0 / 0.08));
+    }
+
+    .snowcap.one {
+      bottom: 48%;
+      left: 22%;
+      width: 14%;
+      height: 10%;
+      clip-path: polygon(8% 88%, 24% 48%, 36% 24%, 48% 46%, 61% 18%, 82% 78%, 100% 94%, 0 100%);
+    }
+
+    .snowcap.two {
+      bottom: 46%;
+      left: 61%;
+      width: 18%;
+      height: 12%;
+      clip-path: polygon(5% 90%, 18% 44%, 35% 18%, 52% 54%, 70% 26%, 90% 78%, 100% 95%, 0 100%);
+    }
+
+    .snowcap.three {
+      bottom: 35%;
+      left: 39%;
+      width: 15%;
+      height: 11%;
+      clip-path: polygon(0 100%, 14% 56%, 32% 22%, 50% 50%, 69% 18%, 88% 60%, 100% 92%);
+    }
+
+    .river {
+      position: absolute;
+      inset: auto 0 0;
+      height: 27%;
+      background:
+        linear-gradient(90deg, transparent 0 12%, var(--river-highlight) 20%, transparent 28% 44%, var(--river-highlight) 50%, transparent 58% 70%, var(--river-highlight) 76%, transparent 82%),
+        linear-gradient(180deg, color-mix(in oklab, white 20%, var(--river) 80%), color-mix(in oklab, black 14%, var(--river) 86%));
+      clip-path: polygon(0 100%, 0 82%, 12% 75%, 24% 76%, 38% 64%, 52% 68%, 66% 55%, 78% 61%, 90% 48%, 100% 44%, 100% 100%);
+      opacity: 0.95;
+      animation: riverShimmer 10s linear infinite;
+    }
+
+    .river::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, oklch(100% 0 0 / 0.35), transparent);
+      transform: translateX(-100%);
+      animation: riverFlash 6s ease-in-out infinite;
+    }
+
+    .ground {
+      position: absolute;
+      inset: auto 0 0;
+      height: 18%;
+      background:
+        linear-gradient(180deg, oklch(39% 0.08 156 / 0.55), oklch(30% 0.09 157 / 0.92)),
+        repeating-linear-gradient(90deg, oklch(32% 0.08 150 / 0.35) 0 14px, transparent 14px 30px);
+      clip-path: polygon(0 100%, 0 36%, 14% 42%, 26% 34%, 40% 40%, 55% 26%, 70% 34%, 82% 24%, 100% 30%, 100% 100%);
+      z-index: 4;
+    }
+
+    .flowerbed {
+      position: absolute;
+      right: 4%;
+      bottom: 10%;
+      width: min(42%, 300px);
+      height: 34%;
+      z-index: 5;
+    }
+
+    .columbine {
+      --scale: 1;
+      position: absolute;
+      width: clamp(82px, 12cqi, 124px);
+      aspect-ratio: 1;
+      animation: sway 6s ease-in-out infinite;
+    }
+
+    .columbine::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: -34%;
+      width: 4px;
+      height: 58%;
+      background: linear-gradient(180deg, oklch(42% 0.11 148), oklch(30% 0.08 152));
+      transform: translateX(-50%);
+      border-radius: 999px;
+    }
+
+    .columbine.one { right: 0; bottom: 6%; animation-delay: -1s; }
+    .columbine.two { --scale: 0.86; right: 26%; bottom: 1%; animation-delay: -3.5s; }
+    .columbine.three { --scale: 0.72; right: 48%; bottom: 8%; animation-delay: -2.4s; }
+
+    .petal {
+      position: absolute;
+      inset: 0;
+      margin: auto;
+      width: 34%;
+      height: 42%;
+      clip-path: polygon(50% 0%, 88% 32%, 76% 100%, 24% 100%, 12% 32%);
+      transform-origin: 50% 88%;
+    }
+
+    .petal.blue {
+      background: linear-gradient(180deg, color-mix(in oklab, white 16%, var(--columbine-blue) 84%), var(--columbine-blue));
+    }
+
+    .petal.white {
+      background: linear-gradient(180deg, white, color-mix(in oklab, var(--columbine-white) 82%, var(--gold) 18%));
+    }
+
+    .columbine .petal:nth-child(1) { transform: translateY(-24%) rotate(0deg); }
+    .columbine .petal:nth-child(2) { transform: translate(-44%, 6%) rotate(-62deg); }
+    .columbine .petal:nth-child(3) { transform: translate(44%, 6%) rotate(62deg); }
+    .columbine .petal:nth-child(4) { transform: translate(-24%, 32%) rotate(-126deg); }
+    .columbine .petal:nth-child(5) { transform: translate(24%, 32%) rotate(126deg); }
+
+    .center {
+      position: absolute;
+      inset: 0;
+      margin: auto;
+      width: 22%;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 35% 35%, white, transparent 38%),
+        linear-gradient(180deg, color-mix(in oklab, white 12%, var(--gold) 88%), oklch(68% 0.13 82));
+      box-shadow: 0 0 0 8px oklch(100% 0 0 / 0.04);
+    }
+
+    .facts-panel {
+      padding: clamp(18px, 3vw, 24px);
+    }
+
+    .facts-panel h2,
+    .process-note h2 {
+      margin: 0 0 8px;
+      font-family: "Audrey", "Georgia", serif;
+      font-size: clamp(1.5rem, 3cqi, 2rem);
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .facts-intro,
+    .process-note p {
+      margin: 0;
+      color: color-mix(in oklab, var(--ink) 72%, white 28%);
+    }
+
+    .fact-grid {
+      display: grid;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .fact {
+      --tilt: -1.8deg;
+      position: relative;
+      padding: 18px 18px 18px 22px;
+      clip-path: polygon(0 0, 92% 0, 100% 12%, 100% 100%, 7% 100%, 0 86%);
+      border: 1px solid var(--card-line);
+      background:
+        linear-gradient(135deg, oklch(100% 0 0 / 0.94), var(--card)),
+        linear-gradient(180deg, transparent, oklch(100% 0 0 / 0.2));
+      transform: rotate(var(--tilt));
+      transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+      animation: factFloat 6s ease-in-out infinite;
+
+      h3,
+      p {
+        margin: 0;
+      }
+    }
+
+    .fact::before {
+      content: attr(data-number);
+      position: absolute;
+      top: 14px;
+      right: 16px;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .fact h3 {
+      margin-bottom: 8px;
+      padding-right: 58px;
+      font-size: 1.02rem;
+      line-height: 1.2;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .fact p {
+      font-size: 0.98rem;
+      line-height: 1.55;
+      color: color-mix(in oklab, var(--ink) 78%, white 22%);
+    }
+
+    .fact:nth-child(2) { --tilt: 1.6deg; animation-delay: -1s; }
+    .fact:nth-child(3) { --tilt: -2.8deg; animation-delay: -2.4s; }
+    .fact:nth-child(4) { --tilt: 2.2deg; animation-delay: -1.8s; }
+    .fact:nth-child(5) { --tilt: -1.1deg; animation-delay: -3.2s; }
+    .fact:nth-child(6) { --tilt: 2.8deg; animation-delay: -2.7s; }
+
+    .fact:hover,
+    .fact:focus-within {
+      transform: rotate(0deg) translateY(-6px) scale(1.01);
+      border-color: oklch(58% 0.08 240 / 0.4);
+      box-shadow: 0 18px 28px -24px oklch(26% 0.04 250 / 0.42);
+    }
+
+    .fact-grid:has(.fact:hover) .fact:not(:hover) {
+      opacity: 0.78;
+      transform: rotate(var(--tilt)) scale(0.985);
+    }
+
+    .process-note {
+      padding: 18px 20px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .process-note p + p {
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+
+    code {
+      padding: 0.14rem 0.4rem;
+      border-radius: 999px;
+      background: oklch(100% 0 0 / 0.62);
+      font-family: "Courier New", monospace;
+      font-size: 0.92em;
+      color: var(--ink);
+    }
+
+    @container (min-width: 54rem) {
+      .content {
+        grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+      }
+
+      .fact-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @keyframes sunPulse {
+      0%, 100% { transform: scale(1) rotate(0deg); }
+      50% { transform: scale(1.05) rotate(4deg); }
+    }
+
+    @keyframes haloSpin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.35; transform: scale(0.8); }
+      50% { opacity: 1; transform: scale(1.22); }
+    }
+
+    @keyframes rangeShift {
+      0%, 100% { transform: translateX(0) translateY(0); }
+      50% { transform: translateX(-0.8%) translateY(0.8%); }
+    }
+
+    @keyframes riverShimmer {
+      from { background-position: 0 0, 0 0; }
+      to { background-position: 180px 0, 0 0; }
+    }
+
+    @keyframes riverFlash {
+      0%, 100% { transform: translateX(-120%); opacity: 0; }
+      35% { opacity: 0.6; }
+      60% { transform: translateX(120%); opacity: 0.3; }
+    }
+
+    @keyframes sway {
+      0%, 100% { transform: rotate(-2deg) translateY(0) scale(var(--scale)); }
+      50% { transform: rotate(2deg) translateY(-4px) scale(var(--scale)); }
+    }
+
+    @keyframes factFloat {
+      0%, 100% { translate: 0 0; }
+      50% { translate: 0 -4px; }
+    }
+
+    @media (max-width: 42rem) {
+      body {
+        padding: 14px;
+      }
+
+      .scene {
+        min-height: 540px;
+      }
+
+      .title-chip {
+        max-width: 22ch;
+      }
+
+      .flowerbed {
+        width: 58%;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="poster">
+    <header class="masthead">
+      <p class="eyebrow">CSE 2004</p>
+      <h1>Colorado in Motion</h1>
+    </header>
+
+    <div class="content">
+      <div class="visual-column">
+        <section class="scene-panel" aria-labelledby="scene-label">
+          <h2 id="scene-label" class="sr-only">Colorado landscape artwork</h2>
+          <div class="scene">
+            <p class="sr-only">
+              A stylized Colorado poster shows a glowing sun, bright stars, layered mountain ranges, a winding river,
+              and three Rocky Mountain columbine flowers in the foreground.
+            </p>
+
+            <div class="title-chip" aria-hidden="true">
+              <strong>Centennial Sky</strong>
+              <span>Peaks, petals, and paper scraps arranged like you are actually in Colorado.</span>
+            </div>
+
+            <div class="sun" aria-hidden="true"></div>
+
+            <div class="starfield" aria-hidden="true">
+              <span class="star"></span>
+              <span class="star"></span>
+              <span class="star"></span>
+              <span class="star"></span>
+              <span class="star"></span>
+              <span class="star"></span>
+            </div>
+
+            <div class="range back" aria-hidden="true"></div>
+            <div class="range mid" aria-hidden="true"></div>
+            <div class="snowcap one" aria-hidden="true"></div>
+            <div class="snowcap two" aria-hidden="true"></div>
+            <div class="range front" aria-hidden="true"></div>
+            <div class="snowcap three" aria-hidden="true"></div>
+            <div class="river" aria-hidden="true"></div>
+            <div class="ground" aria-hidden="true"></div>
+
+            <div class="flowerbed" aria-hidden="true">
+              <div class="columbine one">
+                <span class="petal blue"></span>
+                <span class="petal white"></span>
+                <span class="petal blue"></span>
+                <span class="petal white"></span>
+                <span class="petal blue"></span>
+                <span class="center"></span>
+              </div>
+              <div class="columbine two">
+                <span class="petal blue"></span>
+                <span class="petal white"></span>
+                <span class="petal blue"></span>
+                <span class="petal white"></span>
+                <span class="petal blue"></span>
+                <span class="center"></span>
+              </div>
+              <div class="columbine three">
+                <span class="petal blue"></span>
+                <span class="petal white"></span>
+                <span class="petal blue"></span>
+                <span class="petal white"></span>
+                <span class="petal blue"></span>
+                <span class="center"></span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="process-note" aria-labelledby="process-label">
+          <h2 id="process-label">CSS Notes</h2>
+          <p>
+            The peaks, stars, river, and cards all use clipping or transforms, while the sun, water, flowers, and note
+            stack rely on keyframe animation for motion.
+          </p>
+        </section>
+      </div>
+
+      <aside class="facts-panel" aria-labelledby="facts-label">
+        <h2 id="facts-label">Colorado Facts</h2>
+        <p class="facts-intro">
+          Each card lists an important fact about Colorado! Hover over the fact to see an effect!
+        </p>
+
+        <div class="fact-grid">
+          <article class="fact" data-number="01">
+            <h3>Statehood</h3>
+            <p>Colorado became the 38th state on August 1, 1876, which is why it is called the Centennial State.</p>
+          </article>
+
+          <article class="fact" data-number="02">
+            <h3>Highest Peak</h3>
+            <p>Mount Elbert reaches 14,440 feet above sea level, making it the highest summit in Colorado.</p>
+          </article>
+
+          <article class="fact" data-number="03">
+            <h3>State Flower</h3>
+            <p>The Rocky Mountain columbine became Colorado&rsquo;s state flower in 1899, so the foreground blooms echo a real emblem.</p>
+          </article>
+
+          <article class="fact" data-number="04">
+            <h3>Four Parks</h3>
+            <p>Colorado has four national parks: Rocky Mountain, Great Sand Dunes, Mesa Verde, and Black Canyon of the Gunnison.</p>
+          </article>
+
+          <article class="fact" data-number="05">
+            <h3>Divide Line</h3>
+            <p>The Continental Divide crosses Colorado, splitting water flow toward the Pacific basin or the Atlantic basin.</p>
+          </article>
+
+          <article class="fact" data-number="06">
+            <h3>Fourteeners</h3>
+            <p>Colorado is famous for its fourteeners, the peaks that rise above 14,000 feet and define so much of the state&rsquo;s mountain culture.</p>
+          </article>
+        </div>
+      </aside>
+    </div>
+
+  </main>
+</body>
+</html>

@@ -1,0 +1,1653 @@
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Courier+Prime:wght@400;700&family=Inter:wght@300;400;500&display=swap");
+
+@font-face {
+  font-family: "Audrey";
+  src: url("Audrey/Audrey-Normal.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Audrey";
+  src: url("Audrey/Audrey-Medium.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Audrey";
+  src: url("Audrey/Audrey-Bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Bevola";
+  src: url("bevola-font/BevolaDemo-Regular-BF69b9581c161bc.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --paper: #efe6d8;
+  --ink: #2b2a28;
+  --muted: #7b746b;
+  --rule: #d9cfbf;
+  --rule-soft: #e8ddcd;
+  --card: #f5eee3;
+  --card-shadow: rgba(64, 47, 32, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Inter", sans-serif;
+  line-height: 1.65;
+  padding: 80px 24px 120px;
+  overflow-x: hidden;
+  background-image: radial-gradient(circle at 1px 1px, rgba(0, 0, 0, 0.04) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+body.landing-body {
+  min-height: 100vh;
+  padding: 0 24px 32px;
+  display: grid;
+  place-items: center;
+  background: rgb(213, 193, 174);
+  background-image: none;
+}
+
+main {
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+h1 {
+  font-family: "Bevola", "Cormorant Garamond", serif;
+  font-size: clamp(28px, 5.8vw, 72px);
+  font-weight: 500;
+  margin: 0 0 12px;
+  letter-spacing: 0.015em;
+  text-align: center;
+  line-height: 1.05;
+  white-space: nowrap;
+}
+
+.site-title-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.site-title-link:hover,
+.site-title-link:focus-visible {
+  color: inherit;
+}
+
+h2 {
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(26px, 3.2vw, 38px);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin: 0 0 8px;
+}
+
+.keep-line {
+  white-space: nowrap;
+}
+
+.subline {
+  font-size: 0.76em;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.plate-number {
+  font-size: 12px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 18px;
+  text-align: center;
+}
+
+.subtitle {
+  font-size: 14px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 56px;
+  text-align: center;
+}
+
+.divider {
+  width: 120px;
+  height: 1px;
+  background: var(--rule);
+  margin: 0 auto 56px;
+}
+
+.project-nav {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+}
+
+.seed-nav {
+  display: flex;
+  column-gap: 30px;
+  row-gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 34px;
+  max-width: 860px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.seed-nav .button-link::before {
+  content: none;
+}
+
+.featured {
+  border: 1px solid var(--rule);
+  background: var(--card);
+  background: color-mix(in oklab, var(--card) 92%, white 8%);
+  box-shadow: 0 18px 40px -28px var(--card-shadow);
+  padding: clamp(18px, 3vw, 34px);
+  display: grid;
+  grid-template-columns: minmax(260px, 420px) minmax(0, 1fr);
+  gap: clamp(18px, 3vw, 40px);
+  align-items: center;
+  margin-bottom: 56px;
+}
+
+.featured-image-wrap {
+  border: 1px solid var(--rule-soft);
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.featured-image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.featured-label {
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+.latin {
+  font-style: italic;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+
+.featured-meaning {
+  margin-bottom: 24px;
+  max-width: 42ch;
+}
+
+.button-link {
+  border: 1px solid var(--rule);
+  padding: 10px 16px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 12px;
+  display: inline-block;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.button-link:hover {
+  border-color: var(--ink);
+  transform: translateY(-1px);
+}
+
+.seed-nav .button-link {
+  position: relative;
+  border: 0;
+  padding: 0 0 6px;
+  font-family: "Audrey", "Cormorant Garamond", serif;
+  font-size: 1.18rem;
+  letter-spacing: 0.22em;
+  line-height: 1.2;
+  background: transparent;
+  color: var(--ink);
+  transition: color 0.2s ease;
+}
+
+.seed-nav .button-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.2s ease;
+}
+
+.seed-nav .button-link:hover {
+  border-color: transparent;
+  transform: none;
+}
+
+.seed-nav .button-link:hover::after,
+.seed-nav .button-link:focus-visible::after,
+.seed-nav .button-link[aria-current="page"]::after {
+  transform: scaleX(1);
+}
+
+.catalog-title {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.catalog-subtitle {
+  max-width: 720px;
+  margin: 0 auto 32px;
+  text-align: center;
+  color: var(--muted);
+}
+
+.flower-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 18px;
+}
+
+.grouped-section {
+  margin-bottom: 34px;
+}
+
+.grouped-title {
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border-top: 1px solid var(--rule);
+  padding-top: 12px;
+  margin-bottom: 14px;
+}
+
+.tile-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.flower-tile {
+  display: block;
+}
+
+.tile-image {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  border: 1px solid var(--rule);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.28), rgba(225, 208, 189, 0.4));
+  overflow: hidden;
+}
+
+.tile-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: filter 0.25s ease, transform 0.25s ease;
+}
+
+.tile-image.no-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tile-glyph {
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(42px, 8vw, 68px);
+  color: var(--muted);
+  line-height: 1;
+}
+
+.tile-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(37, 35, 32, 0.56);
+  color: #f7f2ea;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 3px;
+  padding: 12px;
+  opacity: 0;
+  min-width: 0;
+  transition: opacity 0.25s ease;
+}
+
+.tile-name {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 26px;
+  line-height: 1;
+  overflow-wrap: anywhere;
+}
+
+.tile-meaning {
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  overflow-wrap: anywhere;
+}
+
+.flower-tile:hover .tile-image img {
+  filter: grayscale(100%);
+  transform: scale(1.03);
+}
+
+.flower-tile:hover .tile-overlay {
+  opacity: 1;
+}
+
+.home-intro {
+  max-width: 70ch;
+  margin: 0 auto 36px;
+  color: var(--muted);
+  text-align: center;
+  font-family: "Bevola", "Cormorant Garamond", serif;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.landing-shell {
+  width: min(100%, 920px);
+  margin: 0 auto;
+  text-align: center;
+  min-height: calc(100vh - 64px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transform: translateY(9vh);
+}
+
+.landing-title-wrap {
+  display: inline-block;
+  margin-bottom: 12px;
+}
+
+.landing-title-break {
+  display: none;
+}
+
+.landing-title {
+  display: inline-block;
+  margin: 0;
+  padding-right: 0.18em;
+  white-space: nowrap;
+  overflow: hidden;
+  position: relative;
+  width: 0;
+  max-width: 100%;
+  animation: title-type 2.25s steps(23, end) forwards;
+}
+
+.landing-title::after {
+  content: "";
+  display: inline-block;
+  width: 1px;
+  height: 0.9em;
+  margin-left: 3px;
+  vertical-align: -0.08em;
+  background: currentColor;
+  opacity: 1;
+  animation:
+    title-caret 0.45s steps(1, end) 5,
+    cursor-hide 0.01s linear forwards 2.25s;
+}
+
+.landing-divider {
+  width: 120px;
+  height: 1px;
+  background: var(--rule);
+  margin: 0 auto 18px;
+  opacity: 0;
+  animation: landing-fade 0.8s ease forwards;
+  animation-delay: 3.1s;
+}
+
+.landing-flower-wrap {
+  display: inline-block;
+  opacity: 0;
+  animation: landing-fade 1.2s ease forwards;
+  animation-delay: 2.45s;
+}
+
+.landing-flower {
+  display: block;
+  width: min(46vw, 340px);
+  height: auto;
+}
+
+.landing-meaning {
+  margin-top: 18px;
+  text-align: center;
+}
+
+.landing-type-line {
+  --typing-delay: 0s;
+  --typing-duration: 1.1s;
+  display: block;
+  width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+  margin: 0 auto;
+  font-family: "Courier Prime", "Courier New", monospace;
+  color: var(--ink);
+  opacity: 0;
+  animation:
+    landing-line-fade 0.01s linear forwards var(--typing-delay),
+    landing-line-type var(--typing-duration) steps(18, end) forwards var(--typing-delay);
+}
+
+.landing-type-line::after {
+  content: "";
+  position: absolute;
+  top: 0.15em;
+  right: -3px;
+  width: 1px;
+  height: 0.95em;
+  background: currentColor;
+  opacity: 0;
+  animation:
+    title-caret 0.7s step-end infinite var(--typing-delay),
+    cursor-hide 0.01s linear forwards calc(var(--typing-delay) + var(--typing-duration));
+}
+
+.landing-type-line + .landing-type-line {
+  margin-top: 4px;
+}
+
+.landing-type-line.meaning-primary {
+  font-size: 15px;
+  --typing-delay: 3.15s;
+}
+
+.landing-explore {
+  margin-top: 24px;
+  opacity: 0;
+  animation: landing-fade 0.8s ease forwards;
+  animation-delay: 4.45s;
+}
+
+.landing-explore a {
+  font-family: "Courier Prime", "Courier New", monospace;
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: underline;
+  text-underline-offset: 0.22em;
+}
+
+.landing-explore a:hover,
+.landing-explore a:focus-visible {
+  color: var(--ink);
+}
+
+.flower-card {
+  border: 1px solid var(--rule);
+  background: var(--card);
+  padding: 14px;
+  min-height: 188px;
+  min-width: 0;
+  display: grid;
+  grid-template-rows: 88px auto auto;
+  gap: 12px;
+  align-content: start;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.flower-card:hover {
+  border-color: var(--ink);
+  transform: translateY(-2px);
+}
+
+.flower-thumb {
+  width: 100%;
+  border: 1px solid var(--rule-soft);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.28), rgba(225, 208, 189, 0.4));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 10px;
+}
+
+.flower-name {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 26px;
+  line-height: 1;
+}
+
+.flower-meaning {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.return-home {
+  margin-top: 80px;
+  text-align: center;
+}
+
+.return-home a {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 18px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  position: relative;
+  transition: color 0.2s ease;
+}
+
+.return-home a::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 1px;
+  background: var(--rule);
+  margin: 8px auto 0;
+  transition: width 0.3s ease;
+}
+
+.return-home a:hover {
+  color: var(--ink);
+}
+
+.return-home a:hover::after {
+  width: 100px;
+}
+
+.atelier-footer {
+  margin-top: 150px;
+  padding-bottom: 18px;
+}
+
+.atelier-footer a {
+  font-family: "Courier Prime", "Courier New", monospace;
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: underline;
+  text-underline-offset: 0.22em;
+}
+
+.atelier-footer a::after {
+  content: none;
+}
+
+.atelier-footer a:hover {
+  color: var(--ink);
+}
+
+.detail-layout {
+  max-width: 920px;
+  margin: 0 auto;
+  text-align: center;
+  width: 100%;
+}
+
+.flower-card-plate {
+  border: 1px solid var(--rule);
+  background: var(--card);
+  padding: 18px;
+}
+
+.flower-media {
+  max-width: 560px;
+  margin: 0 auto 24px;
+  border: 1px solid var(--rule-soft);
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.28), rgba(225, 208, 189, 0.4));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flower-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.flower-media .tile-glyph {
+  font-size: clamp(64px, 10vw, 90px);
+}
+
+.meta-index {
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+
+.index-section {
+  margin-bottom: 48px;
+}
+
+.empirical-index .index-section h2 {
+  text-align: center;
+  margin-bottom: 10px;
+  letter-spacing: 0.18em;
+  font-size: clamp(26px, 3.4vw, 38px);
+  font-weight: 500;
+}
+
+.empirical-index .meta-row.two-col > div,
+.empirical-index .meta-head {
+  font-family: "Courier Prime", "Courier New", monospace;
+}
+
+.empirical-index .about-intro {
+  max-width: 86ch;
+  margin-bottom: 14px;
+  font-family: "Bevola", "Cormorant Garamond", serif;
+  font-weight: 400;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: color-mix(in oklab, var(--muted) 82%, var(--ink) 18%);
+  text-align: center;
+}
+
+.meta-row {
+  display: grid;
+  grid-template-columns: 1.2fr 1.2fr 1.8fr;
+  gap: 14px;
+  padding: 11px 0;
+  border-top: 1px solid var(--rule-soft);
+}
+
+.meta-row.two-col {
+  grid-template-columns: 1.4fr 2fr;
+}
+
+.empirical-index .meta-row.two-col {
+  grid-template-columns: 1fr 1fr;
+}
+
+.meta-row:first-child {
+  border-top: none;
+}
+
+.empirical-index .meta-index {
+  background: color-mix(in oklab, var(--card) 94%, white 6%);
+  border: none;
+}
+
+.empirical-index .meta-row.two-col:not(.meta-head) {
+  padding-top: 11px;
+  padding-bottom: 11px;
+  text-align: center;
+  align-items: center;
+  border-top: none;
+  transition: background-color 0.2s ease;
+}
+
+.empirical-index .meta-row.two-col {
+  border-top: none;
+}
+
+.empirical-index .meta-row.two-col:not(.meta-head)::before {
+  content: none;
+}
+
+.empirical-index .meta-row.two-col:not(.meta-head):hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.meta-head {
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.empirical-index .meta-head {
+  text-align: center;
+  color: var(--ink);
+  font-size: 12px;
+  letter-spacing: 0.18em;
+}
+
+.empirical-index .meta-head > div {
+  font-weight: 700;
+}
+
+.empirical-index .meta-row.two-col > div:first-child {
+  font-size: 14px;
+  line-height: 1.45;
+  letter-spacing: 0.01em;
+  text-align: center;
+  color: color-mix(in oklab, var(--muted) 76%, var(--ink) 24%);
+}
+
+.empirical-index .meta-row.two-col > div:last-child {
+  color: color-mix(in oklab, var(--muted) 76%, var(--ink) 24%);
+  font-size: 14px;
+  line-height: 1.45;
+  text-align: center;
+}
+
+.meta-index-wrap {
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.index-total {
+  margin-top: 10px;
+  color: color-mix(in oklab, var(--muted) 78%, var(--ink) 22%);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-size: 10px;
+  text-align: center;
+}
+
+.process-grid {
+  display: grid;
+  gap: 16px;
+}
+
+.process-card {
+  border: 1px solid var(--rule);
+  background: var(--card);
+  padding: 14px;
+}
+
+.process-title {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 30px;
+  margin: 0 0 8px;
+}
+
+.field-notes-card {
+  text-align: center;
+}
+
+.field-notes-card .process-title {
+  text-align: center;
+}
+
+.about-layout {
+  max-width: 920px;
+  margin: 0 auto;
+}
+
+.about-section {
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  padding: 26px 0;
+  margin-bottom: 34px;
+}
+
+.about-section h2 {
+  text-align: center;
+  margin-bottom: 14px;
+}
+
+.about-intro {
+  color: var(--muted);
+  margin: 0 auto 18px;
+  max-width: 68ch;
+  text-align: center;
+  font-family: "Bevola", "Cormorant Garamond", serif;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.about-copy {
+  max-width: 72ch;
+  margin: 0 auto 14px;
+  font-family: "Courier Prime", "Courier New", monospace;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.note-section-copy {
+  text-align: center;
+}
+
+.motivation-list {
+  max-width: 76ch;
+  margin: 0 auto;
+}
+
+.book-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.book-card {
+  border: 1px solid var(--rule);
+  background: var(--card);
+  padding: 16px;
+}
+
+.book-cover {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border: 1px solid var(--rule-soft);
+  margin: 0 0 14px;
+  background: rgba(255, 250, 242, 0.7);
+}
+
+.book-label {
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.book-card h3 {
+  font-family: "Cormorant Garamond", serif;
+  margin: 0 0 8px;
+  font-size: 30px;
+  line-height: 1;
+}
+
+.book-card p {
+  margin-bottom: 8px;
+  font-family: "Courier Prime", "Courier New", monospace;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.note-sample {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.note-card {
+  min-height: 360px;
+  border: 1px solid var(--rule);
+  background: color-mix(in oklab, var(--card) 94%, white 6%);
+  padding: 18px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 12px;
+  font-family: "Courier Prime", "Courier New", monospace;
+}
+
+.note-kicker {
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.note-card-front {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding-top: 24px;
+  gap: 18px;
+  background: rgb(219, 202, 180);
+}
+
+.note-thumb {
+  width: min(100%, 180px);
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  background: rgba(255, 250, 242, 0.7);
+}
+
+.note-title {
+  font-size: 15px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink);
+  overflow-wrap: anywhere;
+}
+
+.note-caption {
+  max-width: 28ch;
+  color: color-mix(in oklab, var(--muted) 82%, var(--ink) 18%);
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.note-card-inside {
+  align-items: center;
+  justify-content: flex-start;
+  text-align: center;
+  padding-top: 8px;
+}
+
+.note-card-inside.note-card-form {
+  align-items: flex-start;
+  text-align: left;
+  padding-top: 28px;
+}
+
+.note-card-inside.note-card-centered {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 18px;
+  padding-top: 0;
+}
+
+.note-line {
+  margin: 0;
+  width: 100%;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--rule-soft);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.note-card-centered .note-line {
+  width: 100%;
+  padding-bottom: 14px;
+  font-size: 22px;
+  line-height: 1.3;
+  border-bottom: 1px solid var(--rule-soft);
+}
+
+.note-card-centered .note-line:last-of-type {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.note-rsvp {
+  width: 100%;
+  margin-top: 4px;
+  text-align: center;
+}
+
+.note-rsvp-label {
+  margin: 0 0 8px;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.note-rsvp-options {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.note-rsvp-option {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+}
+
+.note-rsvp-box {
+  width: 14px;
+  height: 14px;
+  border: 1px solid var(--muted);
+  display: inline-block;
+}
+
+.note-line span {
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-right: 8px;
+}
+
+.note-message {
+  margin-top: 6px;
+  font-size: 15px;
+  line-height: 1.75;
+}
+
+.note-cardstock {
+  margin-top: 22px;
+  padding: 22px 26px 28px;
+  border: 1px solid color-mix(in oklab, var(--rule) 88%, var(--ink) 12%);
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 18px 32px -28px rgba(64, 47, 32, 0.22);
+}
+
+.note-cardstock-layout {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.note-cardstock-art {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  width: min(100%, 420px);
+  min-height: 420px;
+  padding-top: 18px;
+}
+
+.note-cardstock-bouquet {
+  width: min(100%, 230px);
+  height: auto;
+  display: block;
+  opacity: 0.96;
+}
+
+.note-script {
+  margin: -8px 0 0;
+  color: #2f2b28;
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(30px, 5vw, 42px);
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  line-height: 1;
+}
+
+.arrangement-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.arrangement-card {
+  border: 1px solid var(--rule);
+  background: var(--card);
+  box-shadow: 0 18px 40px -28px var(--card-shadow);
+}
+
+.arrangement-link {
+  display: grid;
+  grid-template-columns: minmax(180px, 240px) minmax(0, 1fr);
+  gap: 18px;
+  align-items: center;
+  padding: 16px;
+}
+
+.arrangement-link > div {
+  min-width: 0;
+}
+
+.arrangement-visual {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--rule-soft);
+  background: rgba(255, 250, 242, 0.7);
+}
+
+.arrangement-link:hover .arrangement-cover {
+  filter: grayscale(100%);
+  transform: scale(1.03);
+}
+
+.arrangement-link:hover .arrangement-overlay {
+  opacity: 1;
+}
+
+.arrangement-cover {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  background: rgba(255, 250, 242, 0.7);
+  transition: filter 0.25s ease, transform 0.25s ease;
+}
+
+.arrangement-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(37, 35, 32, 0.56);
+  color: #f7f2ea;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 3px;
+  padding: 12px;
+  opacity: 0;
+  min-width: 0;
+  transition: opacity 0.25s ease;
+}
+
+.arrangement-kicker {
+  font-family: "Courier Prime", "Courier New", monospace;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.arrangement-card-title {
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(30px, 4vw, 40px);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  margin: 0 0 10px;
+  overflow-wrap: anywhere;
+}
+
+.arrangement-card-copy {
+  color: color-mix(in oklab, var(--muted) 82%, var(--ink) 18%);
+  overflow-wrap: anywhere;
+}
+
+.arrangement-card-note {
+  margin-top: 14px;
+  font-family: "Courier Prime", "Courier New", monospace;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  overflow-wrap: anywhere;
+}
+
+.specimen {
+  display: block;
+  margin: 0 auto 54px;
+  max-width: 720px;
+  width: 100%;
+  height: auto;
+}
+
+.detail-title {
+  margin-bottom: 8px;
+  font-family: "Courier Prime", "Courier New", monospace;
+  font-size: clamp(18px, 2.1vw, 24px);
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: none;
+  line-height: 1.2;
+}
+
+.definition {
+  max-width: 700px;
+  margin: 0 auto 34px;
+  color: var(--ink);
+  font-family: "Courier Prime", "Courier New", monospace;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.victoria-definition {
+  margin-top: -14px;
+  margin-bottom: 34px;
+  padding: 14px 18px;
+  border: 1px solid var(--rule-soft);
+  background: rgba(255, 250, 242, 0.7);
+  font-style: italic;
+  font-family: "Courier Prime", "Courier New", monospace;
+}
+
+.victoria-definition strong {
+  font-style: normal;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.label {
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: left;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  padding: 22px 0;
+}
+
+.label-row {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 16px;
+  padding: 12px 0;
+  border-top: 1px solid var(--rule-soft);
+}
+
+.label-row:first-child {
+  border-top: none;
+}
+
+.label-key {
+  font-family: "Courier Prime", "Courier New", monospace;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.label-val {
+  color: var(--ink);
+  font-size: 16px;
+  font-family: "Courier Prime", "Courier New", monospace;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+
+.meaning-row .label-val,
+.meaning-row .label-val li {
+  font-weight: 700;
+}
+
+ul {
+  margin: 0;
+  padding-left: 18px;
+}
+
+li {
+  margin: 6px 0;
+}
+
+@keyframes title-type {
+  from {
+    width: 0;
+  }
+
+  to {
+    width: 27.4ch;
+  }
+}
+
+@keyframes title-caret {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes cursor-hide {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes landing-fade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes landing-line-fade {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes landing-line-type {
+  from {
+    width: 0;
+  }
+
+  to {
+    width: 100%;
+  }
+}
+
+@media (max-width: 900px) {
+  body {
+    padding: 64px 20px 92px;
+  }
+
+  .seed-nav {
+    column-gap: 20px;
+    row-gap: 10px;
+  }
+
+  .seed-nav .button-link {
+    font-size: 1.02rem;
+    letter-spacing: 0.16em;
+  }
+
+  .featured {
+    grid-template-columns: 1fr;
+  }
+
+  .arrangement-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .arrangement-link {
+    grid-template-columns: 1fr;
+  }
+
+  .book-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tile-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  h1 {
+    font-size: clamp(24px, 8vw, 46px);
+    letter-spacing: 0.01em;
+  }
+
+  .subtitle {
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    margin-bottom: 34px;
+  }
+
+  .divider {
+    width: 92px;
+    margin-bottom: 34px;
+  }
+
+  .seed-nav {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px 18px;
+    max-width: 420px;
+    margin-bottom: 28px;
+  }
+
+  .seed-nav .button-link {
+    padding: 6px 0;
+    font-size: 0.96rem;
+    letter-spacing: 0.12em;
+    text-align: center;
+  }
+
+  .home-intro,
+  .about-intro,
+  .catalog-subtitle,
+  .empirical-index .about-intro {
+    max-width: 34ch;
+    margin-bottom: 26px;
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  .landing-shell {
+    min-height: 100svh;
+    transform: translateY(4vh);
+  }
+
+  .landing-title {
+    font-size: clamp(24px, 8vw, 40px);
+  }
+
+  .landing-flower {
+    width: min(60vw, 250px);
+  }
+
+  .landing-type-line.meaning-primary {
+    font-size: 13px;
+  }
+
+  .tile-overlay,
+  .arrangement-overlay {
+    opacity: 1;
+    background: linear-gradient(180deg, rgba(37, 35, 32, 0.06) 0%, rgba(37, 35, 32, 0.68) 72%);
+  }
+
+  .flower-tile:hover .tile-image img,
+  .arrangement-link:hover .arrangement-cover {
+    filter: none;
+    transform: none;
+  }
+
+  .tile-name {
+    font-size: 22px;
+  }
+
+  .tile-meaning {
+    font-size: 11px;
+    line-height: 1.45;
+  }
+
+  .meta-head {
+    display: grid;
+  }
+
+  .meta-row.two-col {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 12px;
+    padding: 14px 0;
+  }
+
+  .meta-row.two-col > div {
+    text-align: left;
+  }
+
+  .meta-row.two-col:not(.meta-head) > div::before {
+    content: none;
+    display: none;
+  }
+
+  .empirical-index .meta-row.two-col > div:first-child,
+  .empirical-index .meta-row.two-col > div:last-child {
+    text-align: left;
+    font-size: 15px;
+    line-height: 1.55;
+  }
+
+  .about-section {
+    padding: 22px 0;
+    margin-bottom: 26px;
+  }
+
+  .book-card h3 {
+    font-size: 26px;
+  }
+
+  .note-sample {
+    grid-template-columns: 1fr;
+  }
+
+  .note-card {
+    min-height: auto;
+  }
+
+  .note-cardstock-layout {
+    justify-content: center;
+  }
+
+  .note-cardstock-art {
+    min-height: 360px;
+    padding-top: 8px;
+  }
+
+  .arrangement-card-title {
+    font-size: clamp(25px, 7vw, 34px);
+  }
+
+  .detail-title {
+    font-size: 18px;
+  }
+
+  .definition,
+  .victoria-definition,
+  .about-copy,
+  .book-card p,
+  .label-val {
+    font-size: 14px;
+    line-height: 1.65;
+  }
+
+  .label {
+    padding: 18px 0;
+  }
+
+  .label-row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .atelier-footer {
+    margin-top: 96px;
+  }
+}
+
+@media (max-width: 560px) {
+  body {
+    padding: 48px 16px 72px;
+  }
+
+  .seed-nav {
+    grid-template-columns: 1fr;
+    max-width: 280px;
+  }
+
+  .landing-shell {
+    min-height: calc(100svh - 20px);
+    transform: translateY(1.5vh);
+  }
+
+  .landing-title {
+    font-size: clamp(21px, 8vw, 34px);
+    white-space: normal;
+    width: auto;
+    overflow: visible;
+    padding-right: 0;
+    animation: landing-fade 0.9s ease forwards;
+  }
+
+  .landing-title::after {
+    content: none;
+  }
+
+  .landing-title-break {
+    display: block;
+  }
+
+  .landing-flower {
+    width: min(58vw, 210px);
+  }
+
+  .landing-type-line.meaning-primary {
+    font-size: 12px;
+  }
+
+  .landing-explore a {
+    font-size: 11px;
+    letter-spacing: 0.14em;
+  }
+
+  .flower-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  }
+
+  .tile-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .arrangement-link {
+    padding: 12px;
+  }
+
+  .tile-overlay,
+  .arrangement-overlay,
+  .flower-card,
+  .note-card,
+  .note-cardstock {
+    overflow: hidden;
+  }
+
+  .arrangement-card-copy,
+  .arrangement-card-note {
+    font-size: 13px;
+  }
+
+  .book-card {
+    padding: 14px;
+  }
+
+  .book-card h3 {
+    font-size: 23px;
+  }
+
+  .note-cardstock {
+    padding: 18px 16px 22px;
+  }
+
+  .note-cardstock-art {
+    min-height: 300px;
+  }
+
+  .note-cardstock-bouquet {
+    width: min(100%, 180px);
+  }
+
+  .note-script {
+    margin-top: -4px;
+    font-size: clamp(24px, 8vw, 34px);
+  }
+
+  .flower-media {
+    margin-bottom: 18px;
+  }
+
+  .meta-row {
+    grid-template-columns: 1fr;
+    gap: 5px;
+  }
+}
+
+@media (max-width: 380px) {
+  .tile-grid {
+    grid-template-columns: 1fr;
+  }
+}

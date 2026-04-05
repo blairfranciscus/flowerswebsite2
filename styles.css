@@ -149,12 +149,14 @@ h4 {
   background: rgba(255, 255, 255, 0.64);
   color: var(--ink);
   transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+  max-width: 100%;
 }
 
 .chip,
 .garden-button {
   padding: 0.8rem 1.1rem;
   border-radius: 999px;
+  white-space: normal;
 }
 
 .chip:hover,
@@ -200,6 +202,12 @@ h4 {
   margin-bottom: 1rem;
 }
 
+.detail-panel__header > *,
+.garden-panel__header > *,
+.library-heading > * {
+  min-width: 0;
+}
+
 .flower-list {
   display: flex;
   flex-direction: column;
@@ -214,6 +222,7 @@ h4 {
   text-align: left;
   padding: 0.95rem 1rem;
   border-radius: 18px;
+  overflow-wrap: anywhere;
 }
 
 .flower-pill span,
@@ -291,6 +300,7 @@ h4 {
   border-radius: 20px;
   border: 1px solid var(--rule);
   background: rgba(255, 255, 255, 0.5);
+  min-width: 0;
 }
 
 .facts-list,
@@ -312,6 +322,7 @@ h4 {
 .facts-list dd {
   margin: 0;
   color: var(--muted);
+  overflow-wrap: anywhere;
 }
 
 .pair-list {
@@ -332,6 +343,7 @@ h4 {
   font-family: "Cormorant Garamond", serif;
   font-size: 1.5rem;
   line-height: 1.2;
+  overflow-wrap: anywhere;
 }
 
 .garden-list {
@@ -343,10 +355,16 @@ h4 {
   display: flex;
   justify-content: space-between;
   gap: 1rem;
+  align-items: flex-start;
+  flex-wrap: wrap;
   padding: 1rem;
   border-radius: 18px;
   border: 1px solid var(--rule);
   background: rgba(255, 255, 255, 0.5);
+}
+
+.garden-item > * {
+  min-width: 0;
 }
 
 .garden-item h3 {
@@ -356,11 +374,14 @@ h4 {
 .text-button {
   padding: 0.45rem 0.7rem;
   border-radius: 999px;
+  flex: 0 0 auto;
+  white-space: normal;
 }
 
 .empty-state,
 .status-line {
   margin: 0;
+  overflow-wrap: anywhere;
 }
 
 .site-footer {

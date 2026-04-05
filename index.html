@@ -15,8 +15,8 @@
       <p class="eyebrow">Single Page Application</p>
       <h1>The Digital Floriography Book</h1>
       <p class="hero__copy">
-        Explore the language of flowers through feeling, symbolism, and living botanical details. Static meanings lead
-        the experience; live data and quotes deepen it when available.
+        Explore 70 curated flowers through feeling, symbolism, botanical care, and mood-based quotations. Each entry
+        keeps its floriography meaning at the center, while live data deepens the experience whenever the APIs respond.
       </p>
     </div>
   </header>
@@ -38,7 +38,7 @@
             <p class="section-label">Step 2</p>
             <h2 id="library-heading">Choose A Flower</h2>
           </div>
-          <p class="library-note">Select a flower to open its meaning, facts, and mood quote.</p>
+          <p class="library-note">Select a flower to read its meaning, view botanical facts, and gather a matching quote.</p>
         </div>
         <div id="flowerList" class="flower-list" aria-label="Flower selection list"></div>
       </section>
@@ -102,7 +102,7 @@
           <button id="clearGardenButton" class="text-button" type="button">Clear Garden</button>
         </div>
         <p class="garden-copy">
-          Flowers saved here persist with <code>localStorage</code>, so your collection stays after refresh.
+          Flowers saved here persist with <code>localStorage</code>, so your personal garden stays after refresh.
         </p>
         <div id="gardenList" class="garden-list" aria-live="polite"></div>
       </aside>
@@ -110,7 +110,7 @@
   </main>
 
   <footer class="site-footer">
-    <p>Graceful degradation is built in: if live botanical data fails, the floriography entry still works.</p>
+    <p>Graceful degradation is built in: if live botanical or quote data fails, the floriography entry still remains readable and complete.</p>
   </footer>
 
   <script type="module" src="script.js"></script>

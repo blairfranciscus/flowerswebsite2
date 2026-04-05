@@ -2,9 +2,9 @@ import { FLOWERS } from "./data/flowers.js";
 
 const STORAGE_KEY = "personalGarden:v1";
 const API_CONFIG = {
-  perenualApiKey: "86ecr6ab988o",
-  perenualBaseUrl: "https://perenual.com/api/v2",
-  quoteProvider: "quotable"
+  wikipediaSummaryBaseUrl: "https://en.wikipedia.org/api/rest_v1/page/summary/",
+  wikipediaSearchBaseUrl: "https://en.wikipedia.org/w/rest.php/v1/search/page",
+  quoteProvider: "paperquotes"
 };
 
 const FEELING_ORDER = [
@@ -182,7 +182,11 @@ async function fetchDynamicDetails(flower) {
     renderBotanicalFacts(botanical.value);
   } else {
     renderBotanicalFacts({
-      error:
+      scientificName: flower.scientificName || "Unknown",
+      watering: "Unavailable",
+      sunlight: "Unavailable",
+      cycle: "Unavailable",
+      note:
         botanical.reason?.message ||
         "Botanical details are unavailable right now, but the floriography entry still works."
     });
@@ -199,60 +203,107 @@ async function fetchDynamicDetails(flower) {
 }
 
 async function fetchBotanicalFacts(flower) {
-  if (!API_CONFIG.perenualApiKey) {
-    return {
-      error:
-        "Add your Perenual API key in script.js to load live watering, sunlight, and cycle details."
-    };
+  const fallbackFacts = {
+    scientificName: flower.scientificName || "Unknown",
+    pageTitle: flower.name,
+    encyclopediaDescription: "Archived flower reference",
+    summary: flower.description,
+    note: "Live reference data is unavailable, so this entry is showing archived flower information."
+  };
+
+  const candidateTitles = [flower.name, flower.botanicalLookupTerm, `${flower.name} flower`]
+    .filter(Boolean)
+    .filter((value, index, array) => array.indexOf(value) === index);
+
+  for (const title of candidateTitles) {
+    const summaryUrl = `${API_CONFIG.wikipediaSummaryBaseUrl}${encodeURIComponent(title)}`;
+    const response = await fetch(summaryUrl);
+    if (!response.ok) continue;
+
+    const payload = await response.json();
+    if (payload?.type === "standard" && payload?.extract) {
+      return {
+        scientificName: flower.scientificName || "Unknown",
+        pageTitle: payload.title || title,
+        encyclopediaDescription: payload.description || "Wikipedia flower entry",
+        summary: payload.extract,
+        note: "Live reference data from Wikipedia."
+      };
+    }
   }
 
-  const searchUrl = new URL(`${API_CONFIG.perenualBaseUrl}/species-list`);
-  searchUrl.searchParams.set("key", API_CONFIG.perenualApiKey);
-  searchUrl.searchParams.set("q", flower.botanicalLookupTerm);
+  const searchUrl = new URL(API_CONFIG.wikipediaSearchBaseUrl);
+  searchUrl.searchParams.set("q", `${flower.name} flower`);
+  searchUrl.searchParams.set("limit", "1");
 
   const searchResponse = await fetch(searchUrl);
   if (!searchResponse.ok) {
-    if (searchResponse.status === 429) {
-      return {
-        error: "Perenual free-tier limit reached. Try again later for live botanical facts."
-      };
-    }
-
-    throw new Error("Perenual search failed. The static floriography entry is still available.");
+    return fallbackFacts;
   }
 
   const searchData = await searchResponse.json();
-  const match = searchData?.data?.[0];
-
-  if (!match?.id) {
-    return {
-      error:
-        "Perenual could not find this flower yet. The symbolic meaning is still available while the botanical match is refined."
-    };
+  const firstPage = searchData?.pages?.[0];
+  if (!firstPage?.title) {
+    return fallbackFacts;
   }
 
-  const detailUrl = new URL(`${API_CONFIG.perenualBaseUrl}/species/details/${match.id}`);
-  detailUrl.searchParams.set("key", API_CONFIG.perenualApiKey);
-
-  const detailResponse = await fetch(detailUrl);
-  if (!detailResponse.ok) {
-    const errorText =
-      detailResponse.status === 429
-        ? "Perenual free-tier limit reached. Try again later for live botanical facts."
-        : "Perenual details are unavailable right now.";
-    return { error: errorText };
+  const summaryUrl = `${API_CONFIG.wikipediaSummaryBaseUrl}${encodeURIComponent(firstPage.title)}`;
+  const summaryResponse = await fetch(summaryUrl);
+  if (!summaryResponse.ok) {
+    return fallbackFacts;
   }
 
-  const detailData = await detailResponse.json();
+  const summaryData = await summaryResponse.json();
+  if (summaryData?.type !== "standard" || !summaryData?.extract) {
+    return fallbackFacts;
+  }
+
   return {
-    scientificName: detailData.scientific_name?.[0] || flower.scientificName || "Unknown",
-    watering: detailData.watering || "Unknown",
-    sunlight: Array.isArray(detailData.sunlight) ? detailData.sunlight.join(", ") : detailData.sunlight || "Unknown",
-    cycle: detailData.cycle || "Unknown"
+    scientificName: flower.scientificName || "Unknown",
+    pageTitle: summaryData.title || firstPage.title,
+    encyclopediaDescription: summaryData.description || "Wikipedia flower entry",
+    summary: summaryData.extract,
+    note: "Live reference data from Wikipedia."
   };
 }
 
 async function fetchQuote(flower) {
+  if (API_CONFIG.quoteProvider === "paperquotes") {
+    const paperQuotesUrl = new URL("https://api.paperquotes.com/apiv1/quotes/");
+    paperQuotesUrl.searchParams.set("limit", "1");
+    paperQuotesUrl.searchParams.set("tags", flower.quoteTags.join(","));
+
+    let response = await fetch(paperQuotesUrl);
+    if (!response.ok) {
+      throw new Error("PaperQuotes did not respond.");
+    }
+
+    let payload = await response.json();
+    let quote = payload?.results?.[0];
+
+    if (!quote) {
+      const fallbackUrl = new URL("https://api.paperquotes.com/apiv1/quotes/");
+      fallbackUrl.searchParams.set("limit", "1");
+      response = await fetch(fallbackUrl);
+
+      if (!response.ok) {
+        throw new Error("PaperQuotes did not respond.");
+      }
+
+      payload = await response.json();
+      quote = payload?.results?.[0];
+    }
+
+    if (!quote) {
+      throw new Error("No quote matched the selected mood.");
+    }
+
+    return {
+      content: quote.quote || "No quote available.",
+      author: quote.author || "Unknown"
+    };
+  }
+
   const quotableUrl = new URL("https://api.quotable.io/quotes/random");
   quotableUrl.searchParams.set("limit", "1");
   quotableUrl.searchParams.set("maxLength", "160");
@@ -291,18 +342,14 @@ async function fetchQuote(flower) {
 }
 
 function renderBotanicalFacts(result) {
-  if (result.error) {
-    elements.botanicalFacts.innerHTML = `<p class="status-line">${result.error}</p>`;
-    return;
-  }
-
   elements.botanicalFacts.innerHTML = `
     <dl class="facts-list">
       <div><dt>Scientific Name</dt><dd>${result.scientificName}</dd></div>
-      <div><dt>Watering</dt><dd>${result.watering}</dd></div>
-      <div><dt>Sunlight</dt><dd>${result.sunlight}</dd></div>
-      <div><dt>Cycle</dt><dd>${result.cycle}</dd></div>
+      <div><dt>Reference Title</dt><dd>${result.pageTitle}</dd></div>
+      <div><dt>Reference Type</dt><dd>${result.encyclopediaDescription}</dd></div>
+      <div><dt>Summary</dt><dd>${result.summary}</dd></div>
     </dl>
+    <p class="status-line">${result.note || ""}</p>
   `;
 }
 

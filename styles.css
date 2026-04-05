@@ -1,0 +1,407 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --paper: #f4eadc;
+  --paper-deep: #e9dac3;
+  --ink: #2c241d;
+  --muted: #79695b;
+  --rule: rgba(82, 61, 40, 0.18);
+  --accent: #9d4b45;
+  --accent-soft: #f3d9cb;
+  --panel: rgba(255, 252, 247, 0.84);
+  --shadow: 0 22px 60px rgba(77, 51, 31, 0.12);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--ink);
+  font-family: "Manrope", sans-serif;
+  background:
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.7), transparent 28%),
+    linear-gradient(180deg, #e6d4bc 0%, #f4eadc 22%, #f7f0e6 100%);
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  font: inherit;
+}
+
+code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+.hero {
+  padding: 5rem 1.5rem 2rem;
+}
+
+.hero__inner,
+.site-footer,
+.page-shell {
+  width: min(1200px, calc(100% - 2rem));
+  margin: 0 auto;
+}
+
+.hero__inner {
+  padding: 2.5rem;
+  border: 1px solid var(--rule);
+  border-radius: 28px;
+  background: linear-gradient(145deg, rgba(255, 250, 244, 0.95), rgba(243, 231, 215, 0.88));
+  box-shadow: var(--shadow);
+}
+
+.eyebrow,
+.section-label,
+.flower-card__mood {
+  margin: 0;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-size: 0.74rem;
+  color: var(--muted);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+h1 {
+  font-size: clamp(3rem, 8vw, 5.8rem);
+  line-height: 0.95;
+  margin-top: 0.75rem;
+}
+
+h2 {
+  font-size: clamp(2rem, 3.4vw, 3rem);
+}
+
+h3 {
+  font-size: clamp(2rem, 4vw, 3.2rem);
+}
+
+h4 {
+  font-size: 1.45rem;
+  margin-bottom: 0.8rem;
+}
+
+.hero__copy,
+.filter-summary,
+.library-note,
+.garden-copy,
+.info-block p,
+.garden-item p,
+.site-footer p,
+.flower-pill small,
+.status-line,
+.quote-author {
+  color: var(--muted);
+}
+
+.hero__copy {
+  max-width: 58ch;
+  margin-top: 1rem;
+  font-size: 1.05rem;
+}
+
+.page-shell {
+  padding-bottom: 4rem;
+}
+
+.filter-panel,
+.library-panel,
+.detail-panel,
+.garden-panel {
+  border: 1px solid var(--rule);
+  border-radius: 26px;
+  background: var(--panel);
+  backdrop-filter: blur(8px);
+  box-shadow: var(--shadow);
+}
+
+.filter-panel {
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 1rem;
+}
+
+.chip,
+.garden-button,
+.flower-pill,
+.text-button {
+  border: 1px solid var(--rule);
+  background: rgba(255, 255, 255, 0.64);
+  color: var(--ink);
+  transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+}
+
+.chip,
+.garden-button {
+  padding: 0.8rem 1.1rem;
+  border-radius: 999px;
+}
+
+.chip:hover,
+.chip.is-active,
+.garden-button:hover,
+.flower-pill:hover,
+.flower-pill.is-selected,
+.text-button:hover {
+  transform: translateY(-1px);
+  border-color: rgba(82, 61, 40, 0.45);
+}
+
+.chip.is-active,
+.garden-button,
+.flower-pill.is-selected {
+  background: var(--accent-soft);
+}
+
+.filter-summary {
+  margin-top: 1rem;
+}
+
+.content-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.4fr) minmax(280px, 0.72fr);
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.library-panel,
+.detail-panel,
+.garden-panel {
+  padding: 1.4rem;
+}
+
+.library-heading,
+.detail-panel__header,
+.garden-panel__header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: start;
+  margin-bottom: 1rem;
+}
+
+.flower-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  max-height: 900px;
+  overflow: auto;
+  padding-right: 0.25rem;
+}
+
+.flower-pill {
+  width: 100%;
+  text-align: left;
+  padding: 0.95rem 1rem;
+  border-radius: 18px;
+}
+
+.flower-pill span,
+.flower-pill small {
+  display: block;
+}
+
+.flower-pill span {
+  font-weight: 700;
+  margin-bottom: 0.35rem;
+}
+
+.flower-card {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.flower-card__media {
+  flex: 0 0 min(100%, 340px);
+  border-radius: 24px;
+  overflow: hidden;
+  border: 1px solid var(--rule);
+  background: linear-gradient(180deg, rgba(250, 243, 232, 0.92), rgba(236, 221, 203, 0.92));
+  min-height: 360px;
+  display: grid;
+  place-items: center;
+}
+
+.flower-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.image-placeholder {
+  text-align: center;
+  padding: 1.5rem;
+}
+
+.image-placeholder span {
+  display: block;
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.8rem;
+}
+
+.image-placeholder strong {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 2rem;
+}
+
+.flower-card__body {
+  flex: 1 1 320px;
+  display: grid;
+  gap: 1.1rem;
+}
+
+.flower-card__scientific {
+  margin-top: 0.3rem;
+  font-style: italic;
+  color: var(--muted);
+}
+
+.facts-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.info-block {
+  padding: 1rem;
+  border-radius: 20px;
+  border: 1px solid var(--rule);
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.facts-list,
+.pair-list {
+  margin: 0;
+  padding: 0;
+}
+
+.facts-list div {
+  display: grid;
+  gap: 0.2rem;
+  margin-bottom: 0.8rem;
+}
+
+.facts-list dt {
+  font-weight: 700;
+}
+
+.facts-list dd {
+  margin: 0;
+  color: var(--muted);
+}
+
+.pair-list {
+  list-style: disc;
+  padding-left: 1.15rem;
+}
+
+.pair-list li + li {
+  margin-top: 0.45rem;
+}
+
+.quote-block {
+  margin: 0;
+}
+
+.quote-text {
+  margin: 0 0 0.8rem;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.5rem;
+  line-height: 1.2;
+}
+
+.garden-list {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.garden-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 18px;
+  border: 1px solid var(--rule);
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.garden-item h3 {
+  font-size: 1.65rem;
+}
+
+.text-button {
+  padding: 0.45rem 0.7rem;
+  border-radius: 999px;
+}
+
+.empty-state,
+.status-line {
+  margin: 0;
+}
+
+.site-footer {
+  padding: 0 0 3rem;
+}
+
+@media (max-width: 1100px) {
+  .content-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .garden-panel {
+    order: 3;
+  }
+}
+
+@media (max-width: 760px) {
+  .hero {
+    padding-top: 2rem;
+  }
+
+  .hero__inner,
+  .filter-panel,
+  .library-panel,
+  .detail-panel,
+  .garden-panel {
+    padding: 1.15rem;
+    border-radius: 22px;
+  }
+
+  .detail-panel__header,
+  .library-heading,
+  .garden-panel__header {
+    flex-direction: column;
+  }
+
+  .facts-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .flower-card__media {
+    min-height: 280px;
+  }
+}

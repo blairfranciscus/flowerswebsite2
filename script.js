@@ -26,6 +26,10 @@ const FEELINGS = [
   ...FEELING_ORDER.filter((feeling) => FLOWERS.some((flower) => flower.feelings.includes(feeling)))
 ];
 
+const DEFAULT_GRACEFUL_MESSAGE =
+  "Something did not come through cleanly, but the flower entry is still here for you.";
+let gardenStatusMessage = "";
+
 const state = {
   activeFeeling: "All",
   flowers: FLOWERS,
@@ -49,6 +53,7 @@ const elements = {
   gardenList: document.querySelector("#gardenList"),
   gardenButton: document.querySelector("#gardenButton"),
   clearGardenButton: document.querySelector("#clearGardenButton"),
+  gardenStatus: document.querySelector("#gardenStatus"),
   useLocationButton: document.querySelector("#useLocationButton"),
   cityInput: document.querySelector("#cityInput"),
   citySearchButton: document.querySelector("#citySearchButton"),
@@ -60,12 +65,26 @@ function loadGarden() {
     const parsed = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
     return Array.isArray(parsed) ? parsed : [];
   } catch {
+    gardenStatusMessage =
+      "Your saved garden could not be opened just now, so the page is starting with a fresh one.";
     return [];
   }
 }
 
 function saveGarden() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(state.garden));
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state.garden));
+    gardenStatusMessage = "Your garden has been safely tucked away in this browser.";
+    return true;
+  } catch {
+    gardenStatusMessage =
+      "This browser would not hold onto the garden right now, so your latest change may not stay after refresh.";
+    return false;
+  }
+}
+
+function renderGardenStatus() {
+  elements.gardenStatus.textContent = gardenStatusMessage;
 }
 
 function getVisibleFlowers() {
@@ -101,8 +120,8 @@ function renderFlowerList() {
   const selectedFlower = getSelectedFlower();
 
   if (!selectedFlower) {
-    elements.flowerList.innerHTML = '<p class="empty-state">No flowers match this feeling yet.</p>';
-    elements.filterSummary.textContent = "No flowers are available for the current filter.";
+    elements.flowerList.innerHTML = '<p class="empty-state">Nothing in the collection matches that mood just yet.</p>';
+    elements.filterSummary.textContent = "Try another feeling to browse the collection from a different angle.";
     return;
   }
 
@@ -135,7 +154,7 @@ function renderPairings(flower) {
 
   if (!flower.pairWith.length) {
     const item = document.createElement("li");
-    item.textContent = "No pairing note was preserved for this flower in the archived source.";
+    item.textContent = "This flower stands beautifully on its own, even without a preserved pairing note.";
     elements.pairList.appendChild(item);
     return;
   }
@@ -150,7 +169,7 @@ function renderPairings(flower) {
 function renderLocationPrompt() {
   elements.locationResult.innerHTML = `
     <p class="status-line">
-      Use your location or search for a city to check nearby iNaturalist observations for this flower.
+      Use your location or enter a city to see whether this flower has been observed nearby.
     </p>
   `;
 }
@@ -177,7 +196,7 @@ function renderFlowerDetails() {
 
   renderPairings(flower);
   renderLocationPrompt();
-  elements.botanicalFacts.innerHTML = '<p class="status-line">Loading flower reference...</p>';
+  elements.botanicalFacts.innerHTML = '<p class="status-line">Gathering a few reference notes for this flower...</p>';
 
   fetchReferenceDetails(flower);
 }
@@ -193,9 +212,9 @@ async function fetchReferenceDetails(flower) {
     renderFlowerReference({
       scientificName: flower.scientificName || "Unknown",
       pageTitle: flower.name,
-      encyclopediaDescription: "Archived flower reference",
+      encyclopediaDescription: "Saved flower note",
       summary: flower.description,
-      note: error.message || "Live flower reference is unavailable, so the archived entry is shown instead."
+      note: error.message || "The live reference is resting for the moment, so the entry is leaning on its saved notes."
     });
   }
 }
@@ -204,9 +223,9 @@ async function fetchFlowerReference(flower) {
   const fallbackFacts = {
     scientificName: flower.scientificName || "Unknown",
     pageTitle: flower.name,
-    encyclopediaDescription: "Archived flower reference",
+    encyclopediaDescription: "Saved flower note",
     summary: flower.description,
-    note: "Live reference data is unavailable, so this entry is showing archived flower information."
+    note: "A live reference note was not available, so this entry is drawing from the saved flower record instead."
   };
 
   const candidateTitles = [flower.name, flower.botanicalLookupTerm, `${flower.name} flower`]
@@ -225,7 +244,7 @@ async function fetchFlowerReference(flower) {
         pageTitle: payload.title || title,
         encyclopediaDescription: payload.description || "Wikipedia flower entry",
         summary: payload.extract,
-        note: "Live reference data from Wikipedia."
+        note: "Reference note gathered from Wikipedia."
       };
     }
   }
@@ -261,7 +280,7 @@ async function fetchFlowerReference(flower) {
     pageTitle: summaryData.title || firstPage.title,
     encyclopediaDescription: summaryData.description || "Wikipedia flower entry",
     summary: summaryData.extract,
-    note: "Live reference data from Wikipedia."
+    note: "Reference note gathered from Wikipedia."
   };
 }
 
@@ -293,13 +312,13 @@ async function geocodePlace(query) {
 
   const response = await fetch(url);
   if (!response.ok) {
-    throw new Error("The place search service is unavailable right now.");
+    throw new Error("The place search is taking a pause right now. You can try again in a moment or use your current location instead.");
   }
 
   const payload = await response.json();
   const place = payload?.results?.[0];
   if (!place) {
-    throw new Error("No matching city or place was found. Try a larger nearby city.");
+    throw new Error("That place did not come through clearly. Try a nearby city, a fuller place name, or your current location.");
   }
 
   const placeLabel = [place.name, place.admin1, place.country].filter(Boolean).join(", ");
@@ -322,7 +341,7 @@ async function fetchNearbyObservations(flower, location) {
 
   const response = await fetch(url);
   if (!response.ok) {
-    throw new Error("Nearby observation data is unavailable right now.");
+    throw new Error("The nearby observation service is quiet right now. Please try again in a moment.");
   }
 
   const payload = await response.json();
@@ -336,7 +355,7 @@ function renderLocationResult({ flower, location, observations }) {
   const intro =
     observations.total > 0
       ? `${flower.name} has ${observations.total.toLocaleString()} recorded observations within 50 km of ${location.label}.`
-      : `No nearby ${flower.name} observations were found within 50 km of ${location.label}.`;
+      : `No nearby ${flower.name} observations appeared within 50 km of ${location.label} this time.`;
 
   const listMarkup = observations.results.length
     ? `
@@ -350,13 +369,13 @@ function renderLocationResult({ flower, location, observations }) {
             .join("")}
         </ul>
       `
-    : '<p class="status-line">Try another nearby city or use your precise location for a better check.</p>';
+    : '<p class="status-line">You might try a nearby city, a wider regional place name, or your current location for a fuller picture.</p>';
 
   elements.locationResult.innerHTML = `
     <p>${intro}</p>
     ${listMarkup}
     <p class="status-line">
-      Nearby growth is estimated from public iNaturalist observations, while typical flower information comes from the archived entry and Wikipedia.
+      This view is based on public iNaturalist observations, so it offers a gentle clue rather than a strict botanical boundary.
     </p>
   `;
 }
@@ -374,7 +393,7 @@ async function runNearbyCheck({ source, placeQuery } = {}) {
 
     if (source === "geo") {
       if (!("geolocation" in navigator)) {
-        throw new Error("This browser does not support geolocation. Try entering a city instead.");
+        throw new Error("This browser cannot share location here, but you can still search by city.");
       }
 
       location = await new Promise((resolve, reject) => {
@@ -387,11 +406,11 @@ async function runNearbyCheck({ source, placeQuery } = {}) {
             }),
           (error) => {
             if (error.code === error.PERMISSION_DENIED) {
-              reject(new Error("Location access was denied. Enter a city instead."));
+              reject(new Error("Location access was declined, so the city search is ready for you instead."));
               return;
             }
 
-            reject(new Error("Your location could not be determined. Enter a city instead."));
+            reject(new Error("Your location could not be placed with confidence. A city search will be the easier path."));
           },
           { enableHighAccuracy: true, timeout: 10000, maximumAge: 300000 }
         );
@@ -405,7 +424,7 @@ async function runNearbyCheck({ source, placeQuery } = {}) {
     renderLocationResult({ flower, location, observations });
   } catch (error) {
     if (requestId !== state.locationRequestId) return;
-    elements.locationResult.innerHTML = `<p class="status-line">${error.message}</p>`;
+    elements.locationResult.innerHTML = `<p class="status-line">${error.message || DEFAULT_GRACEFUL_MESSAGE}</p>`;
   } finally {
     if (requestId === state.locationRequestId) {
       setLocationBusy(false);
@@ -415,7 +434,7 @@ async function runNearbyCheck({ source, placeQuery } = {}) {
 
 function renderGarden() {
   if (!state.garden.length) {
-    elements.gardenList.innerHTML = '<p class="empty-state">No flowers saved yet. Pick one from the entry panel.</p>';
+    elements.gardenList.innerHTML = '<p class="empty-state">Your garden is empty for now. Save a flower to begin your collection.</p>';
     return;
   }
 
@@ -448,6 +467,8 @@ function addToGarden() {
 
   if (state.garden.some((item) => item.id === flower.id)) {
     elements.gardenButton.textContent = "Already Saved";
+    gardenStatusMessage = `${flower.name} is already resting in your garden.`;
+    renderGardenStatus();
     window.setTimeout(() => {
       elements.gardenButton.textContent = "Already In Garden";
     }, 1200);
@@ -465,6 +486,7 @@ function addToGarden() {
 
   saveGarden();
   renderGarden();
+  renderGardenStatus();
   renderFlowerDetails();
 }
 
@@ -500,6 +522,7 @@ function setupEvents() {
     state.garden = state.garden.filter((flower) => flower.id !== target.dataset.removeId);
     saveGarden();
     renderGarden();
+    renderGardenStatus();
     renderFlowerDetails();
   });
 
@@ -507,6 +530,7 @@ function setupEvents() {
     state.garden = [];
     saveGarden();
     renderGarden();
+    renderGardenStatus();
     renderFlowerDetails();
   });
 
@@ -517,7 +541,8 @@ function setupEvents() {
   elements.citySearchButton.addEventListener("click", () => {
     const query = elements.cityInput.value.trim();
     if (!query) {
-      elements.locationResult.innerHTML = "<p class=\"status-line\">Enter a city or place first.</p>";
+      elements.locationResult.innerHTML =
+        "<p class=\"status-line\">Add a city or place name first, and the page will take it from there.</p>";
       return;
     }
 
@@ -536,6 +561,7 @@ function init() {
   renderFlowerList();
   renderFlowerDetails();
   renderGarden();
+  renderGardenStatus();
   setupEvents();
 }
 

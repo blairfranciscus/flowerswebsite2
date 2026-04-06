@@ -99,12 +99,12 @@ h4 {
 .filter-summary,
 .library-note,
 .garden-copy,
+.garden-status,
 .info-block p,
 .garden-item p,
 .site-footer p,
 .flower-pill small,
-.status-line,
-.quote-author {
+.status-line {
   color: var(--muted);
 }
 
@@ -112,6 +112,7 @@ h4 {
   max-width: 58ch;
   margin-top: 1rem;
   font-size: 1.05rem;
+  line-height: 1.8;
 }
 
 .page-shell {
@@ -177,6 +178,7 @@ h4 {
 
 .filter-summary {
   margin-top: 1rem;
+  line-height: 1.7;
 }
 
 .content-grid {
@@ -287,6 +289,7 @@ h4 {
   margin-top: 0.3rem;
   font-style: italic;
   color: var(--muted);
+  line-height: 1.6;
 }
 
 .facts-grid {
@@ -303,6 +306,23 @@ h4 {
   min-width: 0;
 }
 
+.info-block p,
+.garden-item p,
+.status-line,
+.garden-status {
+  line-height: 1.75;
+}
+
+.info-block p,
+.facts-list dd,
+.location-result p,
+.garden-item p,
+.empty-state,
+.status-line,
+.garden-status {
+  max-width: 62ch;
+}
+
 .facts-list,
 .pair-list {
   margin: 0;
@@ -317,12 +337,14 @@ h4 {
 
 .facts-list dt {
   font-weight: 700;
+  line-height: 1.45;
 }
 
 .facts-list dd {
   margin: 0;
   color: var(--muted);
   overflow-wrap: anywhere;
+  line-height: 1.7;
 }
 
 .pair-list {
@@ -332,10 +354,6 @@ h4 {
 
 .pair-list li + li {
   margin-top: 0.45rem;
-}
-
-.quote-block {
-  margin: 0;
 }
 
 .location-controls {
@@ -354,7 +372,7 @@ h4 {
   min-width: 0;
   border: 1px solid var(--rule);
   border-radius: 999px;
-  padding: 0.75rem 1rem;
+  padding: 0.85rem 1rem;
   background: rgba(255, 255, 255, 0.82);
   color: var(--ink);
   font: inherit;
@@ -362,10 +380,18 @@ h4 {
 
 .location-button {
   align-self: flex-start;
+  min-height: 2.85rem;
 }
 
 .location-result {
   margin-top: 1rem;
+}
+
+.location-result p:first-child,
+.garden-copy,
+.library-note {
+  margin-top: 0;
+  line-height: 1.7;
 }
 
 .location-list {
@@ -375,6 +401,11 @@ h4 {
 
 .location-list li + li {
   margin-top: 0.45rem;
+}
+
+.location-list li,
+.pair-list li {
+  line-height: 1.65;
 }
 
 .sr-only {
@@ -412,19 +443,26 @@ h4 {
 
 .garden-item h3 {
   font-size: 1.65rem;
+  line-height: 1.05;
 }
 
 .text-button {
-  padding: 0.45rem 0.7rem;
+  padding: 0.7rem 0.95rem;
   border-radius: 999px;
   flex: 0 0 auto;
   white-space: normal;
+  line-height: 1.35;
 }
 
 .empty-state,
 .status-line {
   margin: 0;
   overflow-wrap: anywhere;
+}
+
+.garden-status {
+  min-height: 1.8rem;
+  margin: 0.85rem 0 0;
 }
 
 .site-footer {

@@ -128,7 +128,7 @@ function renderFlowerList() {
   state.selectedFlowerId = selectedFlower.id;
   elements.filterSummary.textContent =
     state.activeFeeling === "All"
-      ? `Showing all ${visibleFlowers.length} curated flowers in the digital floriography book.`
+      ? `Showing all ${visibleFlowers.length} curated flowers in Digital Floriography.`
       : `Showing ${visibleFlowers.length} flowers that match a ${state.activeFeeling.toLowerCase()} mood.`;
 
   elements.flowerList.innerHTML = "";

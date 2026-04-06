@@ -44,7 +44,7 @@ code {
 .hero__inner,
 .site-footer,
 .page-shell {
-  width: min(1200px, calc(100% - 2rem));
+  width: min(1320px, calc(100% - 2rem));
   margin: 0 auto;
 }
 
@@ -54,6 +54,7 @@ code {
   border-radius: 28px;
   background: linear-gradient(145deg, rgba(255, 250, 244, 0.95), rgba(243, 231, 215, 0.88));
   box-shadow: var(--shadow);
+  text-align: center;
 }
 
 .eyebrow,
@@ -110,10 +111,11 @@ h4 {
 }
 
 .hero__copy {
-  max-width: 58ch;
-  margin-top: 1rem;
+  max-width: 100%;
+  margin: 1rem auto 0;
   font-size: 1.05rem;
   line-height: 1.8;
+  text-align: center;
 }
 
 .page-shell {
@@ -138,9 +140,12 @@ h4 {
 
 .chip-row {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.8rem;
+  flex-wrap: nowrap;
+  gap: 0.65rem;
   margin-top: 1rem;
+  overflow-x: auto;
+  padding-bottom: 0.35rem;
+  scrollbar-width: thin;
 }
 
 .chip,
@@ -156,9 +161,9 @@ h4 {
 
 .chip,
 .garden-button {
-  padding: 0.8rem 1.1rem;
+  padding: 0.65rem 0.95rem;
   border-radius: 999px;
-  white-space: normal;
+  white-space: nowrap;
 }
 
 .chip:hover,
@@ -184,15 +189,20 @@ h4 {
 
 .content-grid {
   display: grid;
-  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.4fr) minmax(280px, 0.72fr);
-  gap: 1.5rem;
-  align-items: start;
+  grid-template-columns: minmax(320px, 1fr) minmax(460px, 1.48fr) minmax(320px, 0.88fr);
+  gap: 1.35rem;
+  align-items: stretch;
 }
 
 .library-panel,
 .detail-panel,
 .garden-panel {
   padding: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  height: min(74vh, 980px);
+  overflow: hidden;
 }
 
 .library-heading,
@@ -225,8 +235,10 @@ h4 {
   display: flex;
   flex-direction: column;
   gap: 0.85rem;
-  max-height: 900px;
-  overflow: auto;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
   padding-right: 0.25rem;
 }
 
@@ -252,6 +264,43 @@ h4 {
   display: flex;
   flex-wrap: wrap;
   gap: 1.5rem;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 0.35rem;
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+
+.flower-card:hover,
+.flower-card:focus-within {
+  scrollbar-color: rgba(121, 105, 91, 0.45) rgba(233, 218, 195, 0.38);
+}
+
+.flower-card::-webkit-scrollbar {
+  width: 10px;
+}
+
+.flower-card::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 999px;
+}
+
+.flower-card::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 999px;
+  border: 2px solid rgba(255, 252, 247, 0.45);
+}
+
+.flower-card:hover::-webkit-scrollbar-track,
+.flower-card:focus-within::-webkit-scrollbar-track {
+  background: rgba(233, 218, 195, 0.38);
+}
+
+.flower-card:hover::-webkit-scrollbar-thumb,
+.flower-card:focus-within::-webkit-scrollbar-thumb {
+  background: rgba(121, 105, 91, 0.45);
 }
 
 .flower-card__media {
@@ -434,6 +483,11 @@ h4 {
 .garden-list {
   display: grid;
   gap: 0.9rem;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 0.2rem;
 }
 
 .garden-item {
@@ -476,13 +530,30 @@ h4 {
   overflow-wrap: anywhere;
 }
 
+.scroll-hint {
+  margin: 0.7rem 0 0;
+  font-size: 0.78rem;
+  line-height: 1.4;
+  letter-spacing: 0.03em;
+  text-align: right;
+  color: var(--muted);
+}
+
 .garden-status {
   min-height: 1.8rem;
   margin: 0.85rem 0 0;
 }
 
 .site-footer {
-  padding: 0 0 3rem;
+  padding: 0 1.5rem 3rem;
+  text-align: center;
+}
+
+.site-footer p {
+  margin: 0;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.3rem;
+  letter-spacing: 0.03em;
 }
 
 @media (max-width: 1100px) {
@@ -492,6 +563,20 @@ h4 {
 
   .garden-panel {
     order: 3;
+  }
+
+  .library-panel,
+  .detail-panel,
+  .garden-panel {
+    height: auto;
+  }
+
+  .flower-card,
+  .flower-list,
+  .garden-list {
+    min-height: auto;
+    overflow: visible;
+    padding-right: 0;
   }
 }
 

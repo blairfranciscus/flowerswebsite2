@@ -338,12 +338,55 @@ h4 {
   margin: 0;
 }
 
-.quote-text {
-  margin: 0 0 0.8rem;
-  font-family: "Cormorant Garamond", serif;
-  font-size: 1.5rem;
-  line-height: 1.2;
-  overflow-wrap: anywhere;
+.location-controls {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.location-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.location-input {
+  flex: 1 1 200px;
+  min-width: 0;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: 0.75rem 1rem;
+  background: rgba(255, 255, 255, 0.82);
+  color: var(--ink);
+  font: inherit;
+}
+
+.location-button {
+  align-self: flex-start;
+}
+
+.location-result {
+  margin-top: 1rem;
+}
+
+.location-list {
+  margin: 0.9rem 0 0;
+  padding-left: 1.1rem;
+}
+
+.location-list li + li {
+  margin-top: 0.45rem;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .garden-list {
@@ -424,5 +467,9 @@ h4 {
 
   .flower-card__media {
     min-height: 280px;
+  }
+
+  .location-form {
+    flex-direction: column;
   }
 }

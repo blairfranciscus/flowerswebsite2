@@ -80,8 +80,16 @@
                 <div id="botanicalFacts"></div>
               </div>
               <div class="info-block">
-                <h4>Atmospheric Quote</h4>
-                <blockquote id="quoteBlock" class="quote-block"></blockquote>
+                <h4>See If This Grows Near You</h4>
+                <div class="location-controls">
+                  <button id="useLocationButton" class="text-button location-button" type="button">Use My Location</button>
+                  <div class="location-form">
+                    <label class="sr-only" for="cityInput">City or place</label>
+                    <input id="cityInput" class="location-input" type="text" placeholder="Enter a city or place">
+                    <button id="citySearchButton" class="text-button location-button" type="button">Search By City</button>
+                  </div>
+                </div>
+                <div id="locationResult" class="location-result" aria-live="polite"></div>
               </div>
             </section>
 

@@ -74,7 +74,7 @@ function loadGarden() {
 function saveGarden() {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state.garden));
-    gardenStatusMessage = "Your garden has been safely tucked away in this browser.";
+    gardenStatusMessage = "";
     return true;
   } catch {
     gardenStatusMessage =

@@ -519,9 +519,18 @@ h4 {
   line-height: 1.35;
 }
 
-.garden-panel__header .text-button {
-  margin-top: 0.15rem;
-  margin-left: auto;
+.garden-panel__header {
+  margin-bottom: 0.6rem;
+}
+
+.garden-copy {
+  margin: 0 0 0.5rem;
+}
+
+.garden-clear-row {
+  display: flex;
+  justify-content: flex-end;
+  margin: 0 0 0.5rem;
 }
 
 .empty-state,
@@ -541,7 +550,7 @@ h4 {
 
 .garden-status {
   min-height: 1.8rem;
-  margin: 0.85rem 0 0;
+  margin: 0 0 0.6rem;
 }
 
 .site-footer {

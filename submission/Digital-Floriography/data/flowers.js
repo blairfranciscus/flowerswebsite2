@@ -1,4 +1,4 @@
-export const FLOWERS = [
+window.FLOWERS = [
   {
     "id": "amaryllis",
     "name": "Amaryllis",

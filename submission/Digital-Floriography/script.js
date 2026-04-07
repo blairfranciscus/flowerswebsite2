@@ -1,4 +1,4 @@
-import { FLOWERS } from "./data/flowers.js";
+const FLOWERS = window.FLOWERS || [];
 
 const STORAGE_KEY = "personalGarden:v1";
 const API_CONFIG = {

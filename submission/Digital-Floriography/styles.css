@@ -1,0 +1,623 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --paper: #f4eadc;
+  --paper-deep: #e9dac3;
+  --ink: #2c241d;
+  --muted: #79695b;
+  --rule: rgba(82, 61, 40, 0.18);
+  --accent: #9d4b45;
+  --accent-soft: #f3d9cb;
+  --panel: rgba(255, 252, 247, 0.84);
+  --shadow: 0 22px 60px rgba(77, 51, 31, 0.12);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--ink);
+  font-family: "Manrope", sans-serif;
+  background:
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.7), transparent 28%),
+    linear-gradient(180deg, #e6d4bc 0%, #f4eadc 22%, #f7f0e6 100%);
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  font: inherit;
+}
+
+code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+.hero {
+  padding: 5rem 1.5rem 2rem;
+}
+
+.hero__inner,
+.site-footer,
+.page-shell {
+  width: min(1320px, calc(100% - 2rem));
+  margin: 0 auto;
+}
+
+.hero__inner {
+  padding: 2.5rem;
+  border: 1px solid var(--rule);
+  border-radius: 28px;
+  background: linear-gradient(145deg, rgba(255, 250, 244, 0.95), rgba(243, 231, 215, 0.88));
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+
+.eyebrow,
+.section-label,
+.flower-card__mood {
+  margin: 0;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-size: 0.74rem;
+  color: var(--muted);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+h1 {
+  font-size: clamp(3rem, 8vw, 5.8rem);
+  line-height: 0.95;
+  margin-top: 0.75rem;
+}
+
+h2 {
+  font-size: clamp(2rem, 3.4vw, 3rem);
+  line-height: 1.05;
+}
+
+h3 {
+  font-size: clamp(2rem, 4vw, 3.2rem);
+}
+
+h4 {
+  font-size: 1.45rem;
+  margin-bottom: 0.8rem;
+}
+
+.hero__copy,
+.filter-summary,
+.library-note,
+.garden-copy,
+.garden-status,
+.info-block p,
+.garden-item p,
+.site-footer p,
+.flower-pill small,
+.status-line {
+  color: var(--muted);
+}
+
+.hero__copy {
+  max-width: 100%;
+  margin: 1rem auto 0;
+  font-size: 1.05rem;
+  line-height: 1.8;
+  text-align: center;
+}
+
+.page-shell {
+  padding-bottom: 4rem;
+}
+
+.filter-panel,
+.library-panel,
+.detail-panel,
+.garden-panel {
+  border: 1px solid var(--rule);
+  border-radius: 26px;
+  background: var(--panel);
+  backdrop-filter: blur(8px);
+  box-shadow: var(--shadow);
+}
+
+.filter-panel {
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.chip-row {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0.65rem;
+  margin-top: 1rem;
+  overflow-x: auto;
+  padding-bottom: 0.35rem;
+  scrollbar-width: thin;
+}
+
+.chip,
+.garden-button,
+.flower-pill,
+.text-button {
+  border: 1px solid var(--rule);
+  background: rgba(255, 255, 255, 0.64);
+  color: var(--ink);
+  transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+  max-width: 100%;
+}
+
+.chip,
+.garden-button {
+  padding: 0.65rem 0.95rem;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.chip:hover,
+.chip.is-active,
+.garden-button:hover,
+.flower-pill:hover,
+.flower-pill.is-selected,
+.text-button:hover {
+  transform: translateY(-1px);
+  border-color: rgba(82, 61, 40, 0.45);
+}
+
+.chip.is-active,
+.garden-button,
+.flower-pill.is-selected {
+  background: var(--accent-soft);
+}
+
+.filter-summary {
+  margin-top: 1rem;
+  line-height: 1.7;
+}
+
+.content-grid {
+  display: grid;
+  grid-template-columns: minmax(320px, 1fr) minmax(460px, 1.48fr) minmax(320px, 0.88fr);
+  gap: 1.35rem;
+  align-items: stretch;
+}
+
+.library-panel,
+.detail-panel,
+.garden-panel {
+  padding: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  height: min(74vh, 980px);
+  overflow: hidden;
+}
+
+.library-heading,
+.detail-panel__header,
+.garden-panel__header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem 1.25rem;
+  align-items: start;
+  margin-bottom: 1rem;
+}
+
+.detail-panel__header > *,
+.garden-panel__header > *,
+.library-heading > * {
+  min-width: 0;
+}
+
+.library-heading > div {
+  flex: 1 1 100%;
+}
+
+.library-note {
+  flex: 1 1 100%;
+  margin: 0;
+}
+
+.flower-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 0.25rem;
+}
+
+.flower-pill {
+  width: 100%;
+  text-align: left;
+  padding: 0.95rem 1rem;
+  border-radius: 18px;
+  overflow-wrap: anywhere;
+}
+
+.flower-pill span,
+.flower-pill small {
+  display: block;
+}
+
+.flower-pill span {
+  font-weight: 700;
+  margin-bottom: 0.35rem;
+}
+
+.flower-card {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 0.35rem;
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+
+.flower-card:hover,
+.flower-card:focus-within {
+  scrollbar-color: rgba(121, 105, 91, 0.45) rgba(233, 218, 195, 0.38);
+}
+
+.flower-card::-webkit-scrollbar {
+  width: 10px;
+}
+
+.flower-card::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 999px;
+}
+
+.flower-card::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 999px;
+  border: 2px solid rgba(255, 252, 247, 0.45);
+}
+
+.flower-card:hover::-webkit-scrollbar-track,
+.flower-card:focus-within::-webkit-scrollbar-track {
+  background: rgba(233, 218, 195, 0.38);
+}
+
+.flower-card:hover::-webkit-scrollbar-thumb,
+.flower-card:focus-within::-webkit-scrollbar-thumb {
+  background: rgba(121, 105, 91, 0.45);
+}
+
+.flower-card__media {
+  flex: 0 0 min(100%, 340px);
+  border-radius: 24px;
+  overflow: hidden;
+  border: 1px solid var(--rule);
+  background: linear-gradient(180deg, rgba(250, 243, 232, 0.92), rgba(236, 221, 203, 0.92));
+  min-height: 360px;
+  display: grid;
+  place-items: center;
+}
+
+.flower-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.image-placeholder {
+  text-align: center;
+  padding: 1.5rem;
+}
+
+.image-placeholder span {
+  display: block;
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.8rem;
+}
+
+.image-placeholder strong {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 2rem;
+}
+
+.flower-card__body {
+  flex: 1 1 320px;
+  display: grid;
+  gap: 1.1rem;
+}
+
+.flower-card__scientific {
+  margin-top: 0.3rem;
+  font-style: italic;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.facts-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.info-block {
+  padding: 1rem;
+  border-radius: 20px;
+  border: 1px solid var(--rule);
+  background: rgba(255, 255, 255, 0.5);
+  min-width: 0;
+}
+
+.info-block p,
+.garden-item p,
+.status-line,
+.garden-status {
+  line-height: 1.75;
+}
+
+.info-block p,
+.facts-list dd,
+.location-result p,
+.garden-item p,
+.empty-state,
+.status-line,
+.garden-status {
+  max-width: 62ch;
+}
+
+.facts-list,
+.pair-list {
+  margin: 0;
+  padding: 0;
+}
+
+.facts-list div {
+  display: grid;
+  gap: 0.2rem;
+  margin-bottom: 0.8rem;
+}
+
+.facts-list dt {
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.facts-list dd {
+  margin: 0;
+  color: var(--muted);
+  overflow-wrap: anywhere;
+  line-height: 1.7;
+}
+
+.pair-list {
+  list-style: disc;
+  padding-left: 1.15rem;
+}
+
+.pair-list li + li {
+  margin-top: 0.45rem;
+}
+
+.location-controls {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.location-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.location-input {
+  flex: 1 1 200px;
+  min-width: 0;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: 0.85rem 1rem;
+  background: rgba(255, 255, 255, 0.82);
+  color: var(--ink);
+  font: inherit;
+}
+
+.location-button {
+  align-self: flex-start;
+  min-height: 2.85rem;
+}
+
+.location-result {
+  margin-top: 1rem;
+}
+
+.location-result p:first-child,
+.garden-copy,
+.library-note {
+  margin-top: 0;
+  line-height: 1.7;
+}
+
+.location-list {
+  margin: 0.9rem 0 0;
+  padding-left: 1.1rem;
+}
+
+.location-list li + li {
+  margin-top: 0.45rem;
+}
+
+.location-list li,
+.pair-list li {
+  line-height: 1.65;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.garden-list {
+  display: grid;
+  gap: 0.9rem;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 0.2rem;
+}
+
+.garden-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  padding: 1rem;
+  border-radius: 18px;
+  border: 1px solid var(--rule);
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.garden-item > * {
+  min-width: 0;
+}
+
+.garden-item h3 {
+  font-size: 1.65rem;
+  line-height: 1.05;
+}
+
+.text-button {
+  padding: 0.7rem 0.95rem;
+  border-radius: 999px;
+  flex: 0 0 auto;
+  white-space: normal;
+  line-height: 1.35;
+}
+
+.garden-panel__header {
+  margin-bottom: 0.6rem;
+}
+
+.garden-copy {
+  margin: 0 0 0.5rem;
+}
+
+.garden-clear-row {
+  display: flex;
+  justify-content: flex-end;
+  margin: 0 0 0.5rem;
+}
+
+.empty-state,
+.status-line {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.scroll-hint {
+  margin: 0.7rem 0 0;
+  font-size: 0.78rem;
+  line-height: 1.4;
+  letter-spacing: 0.03em;
+  text-align: right;
+  color: var(--muted);
+}
+
+.garden-status {
+  min-height: 1.8rem;
+  margin: 0 0 0.6rem;
+}
+
+.site-footer {
+  padding: 0 1.5rem 3rem;
+  text-align: center;
+}
+
+.site-footer p {
+  margin: 0;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.3rem;
+  letter-spacing: 0.03em;
+}
+
+@media (max-width: 1100px) {
+  .content-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .garden-panel {
+    order: 3;
+  }
+
+  .library-panel,
+  .detail-panel,
+  .garden-panel {
+    height: auto;
+  }
+
+  .flower-card,
+  .flower-list,
+  .garden-list {
+    min-height: auto;
+    overflow: visible;
+    padding-right: 0;
+  }
+}
+
+@media (max-width: 760px) {
+  .hero {
+    padding-top: 2rem;
+  }
+
+  .hero__inner,
+  .filter-panel,
+  .library-panel,
+  .detail-panel,
+  .garden-panel {
+    padding: 1.15rem;
+    border-radius: 22px;
+  }
+
+  .detail-panel__header,
+  .library-heading,
+  .garden-panel__header {
+    flex-direction: column;
+  }
+
+  .facts-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .flower-card__media {
+    min-height: 280px;
+  }
+
+  .location-form {
+    flex-direction: column;
+  }
+}

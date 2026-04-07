@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Digital Floriography</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="hero">
+    <div class="hero__inner">
+      <h1>Digital Floriography</h1>
+      <p class="hero__copy">
+        Explore 70 flowers through feeling, symbolism, living reference notes, and place-based discovery. Each entry
+        begins with floriography and opens outward into where that flower is known, remembered, and observed.
+      </p>
+    </div>
+  </header>
+
+  <main class="page-shell">
+    <section class="filter-panel" aria-labelledby="feeling-heading">
+      <div>
+        <p class="section-label">Step 1</p>
+        <h2 id="feeling-heading">How do you feel?</h2>
+      </div>
+      <div id="feelingFilters" class="chip-row" aria-label="Filter flowers by feeling"></div>
+      <p id="filterSummary" class="filter-summary" aria-live="polite"></p>
+    </section>
+
+    <div class="content-grid">
+      <section class="library-panel" aria-labelledby="library-heading">
+        <div class="library-heading">
+          <div>
+            <p class="section-label">Step 2</p>
+            <h2 id="library-heading">Choose A Flower</h2>
+          </div>
+          <p class="library-note">Select a flower to read its meaning, explore reference notes, and check whether it appears near you.</p>
+        </div>
+        <div id="flowerList" class="flower-list" aria-label="Flower selection list"></div>
+      </section>
+
+      <section class="detail-panel" aria-labelledby="detail-heading">
+        <div class="detail-panel__header">
+          <div>
+            <p class="section-label">Step 3</p>
+            <h2 id="detail-heading">Flower Entry</h2>
+          </div>
+          <button id="gardenButton" class="garden-button" type="button">Pick For My Garden</button>
+        </div>
+
+        <article class="flower-card">
+          <div id="imageFrame" class="flower-card__media" aria-live="polite"></div>
+
+          <div class="flower-card__body">
+            <div class="flower-card__title-row">
+              <div>
+                <p id="flowerMood" class="flower-card__mood"></p>
+                <h3 id="flowerName"></h3>
+                <p id="flowerScientific" class="flower-card__scientific"></p>
+              </div>
+            </div>
+
+            <section class="info-block">
+              <h4>Floriography Meaning</h4>
+              <p id="flowerMeaning"></p>
+            </section>
+
+            <section class="info-block">
+              <h4>Origin Note</h4>
+              <p id="flowerDescription"></p>
+            </section>
+
+            <section class="facts-grid" aria-label="Dynamic and supporting flower details">
+              <div class="info-block">
+                <h4>Flower Reference</h4>
+                <div id="botanicalFacts"></div>
+              </div>
+              <div class="info-block">
+                <h4>See If This Grows Near You</h4>
+                <div class="location-controls">
+                  <button id="useLocationButton" class="text-button location-button" type="button">Use My Location</button>
+                  <div class="location-form">
+                    <label class="sr-only" for="cityInput">City or place</label>
+                    <input id="cityInput" class="location-input" type="text" placeholder="Enter a city or place">
+                    <button id="citySearchButton" class="text-button location-button" type="button">Search By City</button>
+                  </div>
+                </div>
+                <div id="locationResult" class="location-result" aria-live="polite"></div>
+              </div>
+            </section>
+
+            <section class="info-block">
+              <h4>Pair With</h4>
+              <ul id="pairList" class="pair-list"></ul>
+            </section>
+          </div>
+        </article>
+        <p class="scroll-hint">Scroll to learn more.</p>
+      </section>
+
+      <aside class="garden-panel" aria-labelledby="garden-heading">
+        <div class="garden-panel__header">
+          <div>
+            <p class="section-label">Saved</p>
+            <h2 id="garden-heading">Personal Garden</h2>
+          </div>
+        </div>
+        <p class="garden-copy">
+          Flowers saved here persist with <code>localStorage</code>, so your personal garden stays after refresh.
+        </p>
+        <div class="garden-clear-row">
+          <button id="clearGardenButton" class="text-button" type="button">Clear Garden</button>
+        </div>
+        <p id="gardenStatus" class="garden-status" aria-live="polite"></p>
+        <div id="gardenList" class="garden-list" aria-live="polite"></div>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>CSE 2004 Web Development · Blair Franciscus · Created April 2026</p>
+  </footer>
+
+  <script type="module" src="script.js"></script>
+</body>
+</html>
